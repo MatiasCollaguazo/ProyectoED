@@ -1,5 +1,4 @@
 ec\edu\espol\proyectoed\App.class
-ec\edu\espol\proyectoed\LoginApplication.class
 ec\edu\espol\proyectoed\SecondaryController.class
 ec\edu\espol\proyectoed\model\ArrayCustom.class
 ec\edu\espol\proyectoed\model\FirebaseDatabase.class

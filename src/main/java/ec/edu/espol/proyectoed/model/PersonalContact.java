@@ -11,8 +11,8 @@ public class PersonalContact extends Contact{
         this.lastName = lastName;
     }
 
-    public void setFirstName(String name) {
-        setName(name);
+    public void setFirstName(String firstName) {
+        setName(firstName);
     }
     
     public String getFirstName(){

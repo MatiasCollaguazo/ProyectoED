@@ -2,6 +2,7 @@ package ec.edu.espol.proyectoed;
 
 import ec.edu.espol.proyectoed.model.Contact;
 import ec.edu.espol.proyectoed.model.FirebaseDatabase;
+import ec.edu.espol.proyectoed.model.PersonalContact;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -25,7 +26,7 @@ public class App extends Application {
         /*
             //Add user___________________________________________
                 // Crear una instancia de Usuario
-                Contact user = new Contact("Matías", "Collaguazo", "0987654321", "matiascoll07@hotmail.com");
+                PersonalContact user = new PersonalContact("Matías", "Collaguazo", "0987654321", "mcollagu@espol.edu.ec");
 
                 // Obtener la instancia única de FirebaseDatabase y guardar el usuario
                 FirebaseDatabase db = FirebaseDatabase.getInstance();
@@ -35,11 +36,24 @@ public class App extends Application {
             //_____________________________________________
         */
         
-        /*Delete user
+        /*Delete collection
             FirebaseDatabase db = FirebaseDatabase.getInstance();
             db.deleteData("users");
         
         */
+        
+        
+        /*Delete user
+            FirebaseDatabase db = FirebaseDatabase.getInstance();
+            db.deleteData("users/");
+        */
+        
+        /*Obtain data
+            FirebaseDatabase db = FirebaseDatabase.getInstance();
+            String data = db.getData("users");
+            System.out.println(data);
+        */
+        
         
     }
 
