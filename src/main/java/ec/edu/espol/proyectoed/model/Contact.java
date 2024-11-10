@@ -5,8 +5,7 @@ import com.google.gson.Gson;
  * @author Matías_Collaguazo
  */
 public class Contact {
-    private String firstName;
-    private String lastName;
+    private String name;
     private String phoneNumber;
     private String email;
     private ArrayCustom<Contact> contacts = new ArrayCustom<>();
@@ -14,33 +13,23 @@ public class Contact {
 
     /**
      * Constructor to create a contact with essential information.
-     * @param firstName the contact's first name
-     * @param lastName the contact's last name
+     * @param name the contact's name
      * @param phoneNumber the contact's primary phone number
      * @param email the contact's email address
      */
-    public Contact(String firstName, String lastName, String phoneNumber, String email) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public Contact(String name, String phoneNumber, String email) {
+        this.name = name;
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.additionalAttributes = new LinkedListCustom<>();
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getName() {
+        return name;
     }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    
+    public void setName(String name){
+        this.name=name;
     }
 
     public String getPhoneNumber() {
