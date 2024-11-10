@@ -1,4 +1,4 @@
-package ec.edu.espol.proyectoed;
+package ec.edu.espol.proyectoed.controller;
 
 import ec.edu.espol.proyectoed.model.Contact;
 import ec.edu.espol.proyectoed.model.FirebaseDatabase;

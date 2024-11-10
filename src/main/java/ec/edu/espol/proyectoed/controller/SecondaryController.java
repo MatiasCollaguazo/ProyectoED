@@ -1,4 +1,4 @@
-package ec.edu.espol.proyectoed;
+package ec.edu.espol.proyectoed.controller;
 
 import java.io.IOException;
 import javafx.fxml.FXML;
