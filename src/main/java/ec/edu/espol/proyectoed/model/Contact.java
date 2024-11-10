@@ -4,7 +4,7 @@ import com.google.gson.Gson;
  * 
  * @author Matías_Collaguazo
  */
-public class Contact {
+public abstract class Contact {
     private String name;
     private String phoneNumber;
     private String email;
@@ -12,7 +12,6 @@ public class Contact {
     private LinkedListCustom< Attribute<String,String> > additionalAttributes;
 
     /**
-     * Constructor to create a contact with essential information.
      * @param name the contact's name
      * @param phoneNumber the contact's primary phone number
      * @param email the contact's email address

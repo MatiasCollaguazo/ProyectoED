@@ -7,8 +7,11 @@ package ec.edu.espol.proyectoed.model;
 public class ContactManager {
     private static ContactManager instance;
     private ArrayCustom<Contact> contacts;
+    private Contact user;
 
-    private ContactManager() {} //singleton :P
+    private ContactManager() {
+    
+    } //singleton :P
 
     /**
      * Provides access to the single instance of ContactManager.

@@ -39,7 +39,6 @@ public class App extends Application {
             FirebaseDatabase db = FirebaseDatabase.getInstance();
             db.deleteData("users");
         
-        
         */
         
     }
