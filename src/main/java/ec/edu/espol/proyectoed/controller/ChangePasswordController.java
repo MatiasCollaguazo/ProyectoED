@@ -15,9 +15,9 @@ import javafx.scene.input.MouseEvent;
 public class ChangePasswordController implements Initializable {
 
     @FXML
-    private PasswordField actualContra;
+    private PasswordField antiquePassword;
     @FXML
-    private PasswordField nuevaContra;
+    private PasswordField newPassword;
 
     /**
      * Initializes the controller class.
@@ -28,11 +28,8 @@ public class ChangePasswordController implements Initializable {
     }    
 
     @FXML
-    private void regresar(MouseEvent event) {
+    private void changePassword(MouseEvent event) {
     }
 
-    @FXML
-    private void cambiarContraseña(MouseEvent event) {
-    }
     
 }
