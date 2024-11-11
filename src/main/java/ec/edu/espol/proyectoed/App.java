@@ -1,8 +1,5 @@
 package ec.edu.espol.proyectoed;
 
-import ec.edu.espol.proyectoed.model.Contact;
-import ec.edu.espol.proyectoed.model.FirebaseDatabase;
-import ec.edu.espol.proyectoed.model.PersonalContact;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
