@@ -20,38 +20,6 @@ public class App extends Application {
         scene = new Scene(loadFXML("primary"), 640, 480);
         stage.setScene(scene);
         stage.show();
-        /*
-            //Add user___________________________________________
-                // Crear una instancia de Usuario
-                PersonalContact user = new PersonalContact("Matías", "Collaguazo", "0987654321", "mcollagu@espol.edu.ec");
-
-                // Obtener la instancia única de FirebaseDatabase y guardar el usuario
-                FirebaseDatabase db = FirebaseDatabase.getInstance();
-                db.saveData("users", user.toJson());
-
-                System.out.println("Usuario guardado en la base de datos.");
-            //_____________________________________________
-        */
-        
-        /*Delete collection
-            FirebaseDatabase db = FirebaseDatabase.getInstance();
-            db.deleteData("users");
-        
-        */
-        
-        
-        /*Delete user
-            FirebaseDatabase db = FirebaseDatabase.getInstance();
-            db.deleteData("users/");
-        */
-        
-        /*Obtain data
-            FirebaseDatabase db = FirebaseDatabase.getInstance();
-            String data = db.getData("users");
-            System.out.println(data);
-        */
-        
-        
     }
 
     static void setRoot(String fxml) throws IOException {
