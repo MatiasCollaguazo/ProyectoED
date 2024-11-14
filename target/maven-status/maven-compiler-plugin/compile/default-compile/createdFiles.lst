@@ -1,9 +1,7 @@
 ec\edu\espol\proyectoed\App.class
 ec\edu\espol\proyectoed\SecondaryController.class
 ec\edu\espol\proyectoed\model\ArrayCustom.class
-ec\edu\espol\proyectoed\model\FirebaseDatabase.class
 ec\edu\espol\proyectoed\model\NodeCustom.class
-ec\edu\espol\proyectoed\model\Database.class
 ec\edu\espol\proyectoed\model\CompanyContact.class
 ec\edu\espol\proyectoed\model\LinkedListCustom.class
 module-info.class
