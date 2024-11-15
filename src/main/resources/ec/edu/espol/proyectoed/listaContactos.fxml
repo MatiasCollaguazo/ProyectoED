@@ -3,7 +3,6 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.VBox?>
 
-
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.proyectoed.listaContactosController">
    <children>
       <ImageView fx:id="iv_fondo" fitHeight="800.0" fitWidth="450.0" pickOnBounds="true" preserveRatio="true" />
