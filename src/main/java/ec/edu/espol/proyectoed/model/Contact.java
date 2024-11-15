@@ -1,5 +1,5 @@
 package ec.edu.espol.proyectoed.model;
-import com.google.gson.Gson;
+//import com.google.gson.Gson;
 /**
  * 
  * @author Matías_Collaguazo
@@ -54,9 +54,9 @@ public abstract class Contact {
     public ArrayCustom getContacts(){
         return contacts;
     }
-    
+    /*
     public String toJson() {
         Gson gson = new Gson();
         return gson.toJson(this);
-    }
+    }*/
 }
