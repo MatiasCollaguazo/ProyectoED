@@ -1,10 +1,11 @@
 package ec.edu.espol.proyectoed.model;
 
 /**
- * 
+ *
  * @author Matías_Collaguazo
  */
 public class LinkedListCustom<E> {
+
     private NodeCustom<E> head;
     private NodeCustom<E> last;
     private int selfSize;

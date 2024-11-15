@@ -4,7 +4,8 @@ package ec.edu.espol.proyectoed.model;
  *
  * @author Matías_Collaguazo
  */
-public class ContactAttribute<K,V> {
+public class ContactAttribute<K, V> {
+
     private K attributeName;
     private V value;
 
@@ -38,6 +39,5 @@ public class ContactAttribute<K,V> {
         sb.append('}');
         return sb.toString();
     }
-    
-    
+
 }

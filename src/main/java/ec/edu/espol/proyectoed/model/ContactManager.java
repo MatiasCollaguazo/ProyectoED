@@ -1,21 +1,23 @@
 package ec.edu.espol.proyectoed.model;
 
 /**
- * 
+ *
  * @author Matías_Collaguazo
  */
 public class ContactManager {
+
     private static ContactManager instance;
     private ArrayCustom<Contact> contacts;
     private Contact user;
 
     private ContactManager() {
-    
+
     } //singleton :P
 
     /**
-     * Provides access to the single instance of ContactManager.
-     * If the instance doesn't exist, it creates one.
+     * Provides access to the single instance of ContactManager. If the instance
+     * doesn't exist, it creates one.
+     *
      * @return the single instance of ContactManager
      */
     public static ContactManager getInstance() {
@@ -24,26 +26,24 @@ public class ContactManager {
         }
         return instance;
     }
-    
-    
+
     /**
      * Adds a new contact to the list.
+     *
      * @param contact the contact to add
      */
     public void addContact(Contact contact) {
         if (contact != null) {
             contacts.add(contact);
-        }else{
+        } else {
             throw new NullPointerException("Cannot add a null contact. Error ProyectoED Failed01");
         }
     }
-    
-    
+
     /*
         Here can be added a removeContact() method, but
         i don't know if we will use serializableID or an artificial ID
-    */
-    
+     */
     public void listContacts() {
         if (contacts.getSize() == 0) {
             System.out.println("No contacts available");
@@ -53,11 +53,11 @@ public class ContactManager {
             }
         }
     }
-    
-    
+
     /**
      * @param contact the contact to which the attribute will be added
-     * @param attributeName the name of the attribute (e.g., "Facebook", "Instagram", "Discord)
+     * @param attributeName the name of the attribute (e.g., "Facebook",
+     * "Instagram", "Discord)
      * @param value the value associated with this attribute
      */
     public void addAttribute(Contact contact, String attributeName, String value) {
@@ -86,10 +86,10 @@ public class ContactManager {
      */
     public void removeAttribute(Contact contact, String attributeName) {
         //May create a "ListCustom" class would be a effective manner to change the data structure here
-        LinkedListCustom<ContactAttribute<String,String>> additionalAttributes;
-        if (contact.getAdditionalAttributes()!=null) {
+        LinkedListCustom<ContactAttribute<String, String>> additionalAttributes;
+        if (contact.getAdditionalAttributes() != null) {
             additionalAttributes = contact.getAdditionalAttributes();
-        }else{
+        } else {
             throw new NullPointerException(contact.toString() + "doesn't have additional attributes. Error ProyectoED Failed02");
         }
         for (int i = 0; i < contact.getAdditionalAttributes().getSize(); i++) {

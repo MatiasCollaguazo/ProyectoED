@@ -1,22 +1,28 @@
 package ec.edu.espol.proyectoed.model;
 
-/**
- *
- * @author matia
- */
+import java.util.Locale;
+import java.util.ResourceBundle;
+
 public enum Attributes {
-    FIRST_NAME("First Name"),
-    LAST_NAME("Last Name"),
-    PHONE_NUMBER("Phone Number"),
-    EMAIL("Email"),
-    ADDRESS("Address"),
-    COMPANY_NAME("Company Name"),
-    BIRTHDAY("Birthday"),
-    DYNAMIC("");
+    FIRST_NAME,
+    NAME,
+    LAST_NAME,
+    PHONE_NUMBER,
+    EMAIL,
+    ADDRESS,
+    COMPANY_NAME,
+    BIRTHDAY,
+    COUNTRY;
 
-    private final String displayName;
+    private static Locale currentLocale = Locale.getDefault();
+    private static ResourceBundle bundle = ResourceBundle.getBundle("messages", currentLocale);
 
-    Attributes(String displayName) {
-        this.displayName = displayName;
+    public static void setLocale(Locale locale) {
+        currentLocale = locale;
+        bundle = ResourceBundle.getBundle("messages", currentLocale);
+    }
+
+    public String getDisplayName() {
+        return bundle.getString(this.name());
     }
 }
