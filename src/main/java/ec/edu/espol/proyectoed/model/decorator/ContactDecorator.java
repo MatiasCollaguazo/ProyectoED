@@ -1,10 +1,15 @@
-package ec.edu.espol.proyectoed.model;
+package ec.edu.espol.proyectoed.model.decorator;
+
+import ec.edu.espol.proyectoed.model.ContactAttribute;
+import ec.edu.espol.proyectoed.model.Contact;
+import ec.edu.espol.proyectoed.model.LinkedListCustom;
 
 /**
  *
  * @author Matías_Collaguazo
  */
 public abstract class ContactDecorator extends Contact {
+
     protected Contact decoratedContact;
 
     public ContactDecorator(Contact decoratedContact) {
@@ -13,12 +18,12 @@ public abstract class ContactDecorator extends Contact {
     }
 
     @Override
-    public LinkedListCustom<Attribute<String, String>> getMainAttributes() {
+    public LinkedListCustom<ContactAttribute<String, String>> getMainAttributes() {
         return decoratedContact.getMainAttributes();
     }
 
     @Override
-    public LinkedListCustom<Attribute<String, String>> getAdditionalAttributes() {
+    public LinkedListCustom<ContactAttribute<String, String>> getAdditionalAttributes() {
         return decoratedContact.getAdditionalAttributes();
     }
 }

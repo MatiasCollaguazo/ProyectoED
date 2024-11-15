@@ -61,7 +61,7 @@ public class ContactManager {
      * @param value the value associated with this attribute
      */
     public void addAttribute(Contact contact, String attributeName, String value) {
-        Attribute<String, String> attribute = new Attribute<>(attributeName, value);
+        ContactAttribute<String, String> attribute = new ContactAttribute<>(attributeName, value);
         contact.getAdditionalAttributes().add(attribute);
     }
 
@@ -72,7 +72,7 @@ public class ContactManager {
      */
     public String getAttribute(Contact contact, String attributeName) {
         for (int i = 0; i < contact.getAdditionalAttributes().getSize(); i++) {
-            Attribute<String, String> attribute = (Attribute<String, String>) contact.getAdditionalAttributes().get(i);
+            ContactAttribute<String, String> attribute = (ContactAttribute<String, String>) contact.getAdditionalAttributes().get(i);
             if (attribute.getAttributeName().equals(attributeName)) {
                 return attribute.getValue();
             }
@@ -86,7 +86,7 @@ public class ContactManager {
      */
     public void removeAttribute(Contact contact, String attributeName) {
         //May create a "ListCustom" class would be a effective manner to change the data structure here
-        LinkedListCustom<Attribute<String,String>> additionalAttributes;
+        LinkedListCustom<ContactAttribute<String,String>> additionalAttributes;
         if (contact.getAdditionalAttributes()!=null) {
             additionalAttributes = contact.getAdditionalAttributes();
         }else{

@@ -4,11 +4,11 @@ package ec.edu.espol.proyectoed.model;
  *
  * @author Matías_Collaguazo
  */
-public class Attribute<K,V> {
+public class ContactAttribute<K,V> {
     private K attributeName;
     private V value;
 
-    public Attribute(K attributeName, V value) {
+    public ContactAttribute(K attributeName, V value) {
         this.attributeName = attributeName;
         this.value = value;
     }

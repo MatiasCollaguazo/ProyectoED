@@ -1,4 +1,6 @@
-package ec.edu.espol.proyectoed.model;
+package ec.edu.espol.proyectoed.model.creators;
+
+import ec.edu.espol.proyectoed.model.Contact;
 
 /**
  *
