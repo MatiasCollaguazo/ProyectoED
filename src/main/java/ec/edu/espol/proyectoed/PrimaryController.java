@@ -5,12 +5,15 @@ import ec.edu.espol.proyectoed.model.Attributes;
 import ec.edu.espol.proyectoed.model.Contact;
 import ec.edu.espol.proyectoed.model.ContactAttribute;
 import ec.edu.espol.proyectoed.model.ContactManager;
+import ec.edu.espol.proyectoed.model.ContactType;
 import ec.edu.espol.proyectoed.model.PersonalContact;
 import ec.edu.espol.proyectoed.model.creators.CompanyContactCreator;
+import ec.edu.espol.proyectoed.model.creators.ContactCreator;
 import ec.edu.espol.proyectoed.model.creators.PersonalContactCreator;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -44,51 +47,52 @@ public class PrimaryController implements Initializable{
         App.setRoot("secondary");
     }
 
-   @Override
+    @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // Configuración de columnas
-        nameColumn.setCellValueFactory(new PropertyValueFactory<>(Attributes.NAME.getDisplayName()));
-        emailColumn.setCellValueFactory(new PropertyValueFactory<>(Attributes.EMAIL.getDisplayName()));
-        phoneColumn.setCellValueFactory(cellData -> {
-            String phoneNumber = null;
-            for (ContactAttribute<String, String> attribute : cellData.getValue().getMainAttributes()) {
-                if (attribute.getAttributeName().equals(Attributes.PHONE_NUMBER.name())) {
-                    phoneNumber = attribute.getValue();
-                    break;
-                }
-            }
-            return new javafx.beans.property.SimpleStringProperty(phoneNumber);
-        });
-        
+        // Configuración inicial del TableView
+        nameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAttribute(Attributes.FIRST_NAME.getDisplayName())));
+        phoneColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAttribute(Attributes.PHONE_NUMBER.getDisplayName())));
+        emailColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAttribute(Attributes.EMAIL.getDisplayName())));
 
-
-        contactsTable.setItems(contactsObservableList);
-
+        // Creadores de contactos
         PersonalContactCreator personalCreator = new PersonalContactCreator();
         CompanyContactCreator companyCreator = new CompanyContactCreator();
 
-        PersonalContact user = (PersonalContact) personalCreator.createContact("Matías", "Collaguazo", "0999999999", "matias@example.com");
-        setUser(user);
+        Contact USER = personalCreator.createContact("Matías", "Collaguazo","0912345678","matias@example.com");
+        Contact pabloContact = personalCreator.createContact("Pablo","Menéndez","0998765432","pablo@example.com");
+        Contact companyContact = companyCreator.createContact("Juan Pérez","Constructora Scheel","0987654321","info@scheel.com");
 
-        Contact contact1 = personalCreator.createContact("Pablo", "Toledo", "0943526475", "pablo@example.com");
-        Contact contact2 = companyCreator.createContact("Juan", "TechCorp", "0988888888", "juan@techcorp.com");
-
-        contactManager.addContact(contact1);
-        contactManager.addContact(contact2);
-
+        
+        // Agregar contactos a la lista observable
+        setUser(USER);
+        contactManager.addContact(pabloContact);
+        contactManager.addContact(companyContact);
         loadContactsFromManager();
     }
-
     
+ 
     private void setUser(Contact user){
         contactManager.setUser(user);
     }
     
+    
+    /*
+        Compability feature, added because ArrayCustom isn't compatible with ObservableList<>
+        directly, then we achieve the contacts into something compatible with observable list,
+        and then... is compatible with TableView (With default ArrayList class is compatible)
+    */
     private void loadContactsFromManager() {
         ArrayCustom<Contact> allContacts = contactManager.getAllContacts();
+        System.out.println("Cantidad de contactos es: "+allContacts.getSize());
+        System.out.println(contactManager.getAllContacts());
+        ObservableList<Contact> observableContacts = FXCollections.observableArrayList();
+
         for (int i = 0; i < allContacts.getSize(); i++) {
-            contactsObservableList.add(allContacts.get(i));
+            observableContacts.add(allContacts.get(i));
         }
+
+        contactsObservableList.addAll(observableContacts);
+        contactsTable.setItems(contactsObservableList);
     }
     
 }

@@ -1,5 +1,6 @@
 package ec.edu.espol.proyectoed.model.decorator;
 
+import ec.edu.espol.proyectoed.model.Attributes;
 import ec.edu.espol.proyectoed.model.ContactAttribute;
 import ec.edu.espol.proyectoed.model.Contact;
 
@@ -11,6 +12,6 @@ public class AddressDecorator extends ContactDecorator {
 
     public AddressDecorator(Contact decoratedContact, String address) {
         super(decoratedContact);
-        this.decoratedContact.getAdditionalAttributes().add(new ContactAttribute<>("Address", address));
+        this.decoratedContact.getAdditionalAttributes().add(new ContactAttribute<>(Attributes.ADDRESS.getDisplayName(), address));
     }
 }

@@ -7,7 +7,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="ec.edu.espol.proyectoed.PrimaryController">
+<BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.proyectoed.PrimaryController">
     <left>
         <VBox spacing="15" style="-fx-padding: 20;">
            <children>
@@ -49,10 +49,10 @@
                </HBox>
                <TableView fx:id="contactsTable" style="-fx-background-color: #ffffff; -fx-border-color: #ddd; -fx-border-radius: 5;">
                    <columns>
-                        <TableColumn text="Nombre" fx:id="nameColumn" prefWidth="200" />
-                        <TableColumn text="Correo Electrónico" fx:id="emailColumn" prefWidth="300" />
-                        <TableColumn text="Número de Teléfono" fx:id="phoneColumn" prefWidth="200" />
-                        <TableColumn text="Puesto y Empresa" fx:id="jobColumn" prefWidth="200" />
+                        <TableColumn fx:id="nameColumn" prefWidth="131.0" text="Nombre" />
+                        <TableColumn fx:id="emailColumn" prefWidth="163.0" text="Correo Electrónico" />
+                        <TableColumn fx:id="phoneColumn" prefWidth="206.0" text="Número de Teléfono" />
+                        <TableColumn fx:id="jobColumn" prefWidth="400.0" text="Puesto y Empresa" />
                    </columns>
                </TableView>
            </children>
