@@ -105,7 +105,8 @@ public class ContactManager {
         }
     }
 
-    public ArrayCustom<Contact> getContacts() {
+    public ArrayCustom<Contact> getAllContacts() {
         return contacts;
     }
+    
 }

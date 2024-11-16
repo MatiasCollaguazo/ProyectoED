@@ -1,7 +1,9 @@
 package ec.edu.espol.proyectoed;
 
 import ec.edu.espol.proyectoed.model.ArrayCustom;
+import ec.edu.espol.proyectoed.model.Attributes;
 import ec.edu.espol.proyectoed.model.Contact;
+import ec.edu.espol.proyectoed.model.ContactAttribute;
 import ec.edu.espol.proyectoed.model.ContactManager;
 import ec.edu.espol.proyectoed.model.PersonalContact;
 import ec.edu.espol.proyectoed.model.creators.CompanyContactCreator;
@@ -34,17 +36,33 @@ public class PrimaryController implements Initializable{
     @FXML
     private TableView<Contact> contactsTable;
     private final ContactManager contactManager = new ContactManager();
+    private final ObservableList<Contact> contactsObservableList = FXCollections.observableArrayList();
+
+    
     
     private void switchToSecondary() throws IOException {
         App.setRoot("secondary");
     }
 
-    @Override
+   @Override
     public void initialize(URL location, ResourceBundle resources) {
-        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-        emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
-        phoneColumn.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
-        jobColumn.setCellValueFactory(new PropertyValueFactory<>("job"));
+        // Configuración de columnas
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>(Attributes.NAME.getDisplayName()));
+        emailColumn.setCellValueFactory(new PropertyValueFactory<>(Attributes.EMAIL.getDisplayName()));
+        phoneColumn.setCellValueFactory(cellData -> {
+            String phoneNumber = null;
+            for (ContactAttribute<String, String> attribute : cellData.getValue().getMainAttributes()) {
+                if (attribute.getAttributeName().equals(Attributes.PHONE_NUMBER.name())) {
+                    phoneNumber = attribute.getValue();
+                    break;
+                }
+            }
+            return new javafx.beans.property.SimpleStringProperty(phoneNumber);
+        });
+        
+
+
+        contactsTable.setItems(contactsObservableList);
 
         PersonalContactCreator personalCreator = new PersonalContactCreator();
         CompanyContactCreator companyCreator = new CompanyContactCreator();
@@ -52,13 +70,25 @@ public class PrimaryController implements Initializable{
         PersonalContact user = (PersonalContact) personalCreator.createContact("Matías", "Collaguazo", "0999999999", "matias@example.com");
         setUser(user);
 
-        contactManager.addContact(personalCreator.createContact("Pablo", "Toledo", "0943526475", "pablo@example.com"));
-        contactManager.addContact(companyCreator.createContact("Juan", "TechCorp", "0988888888", "juan@techcorp.com"));
-        
-        
+        Contact contact1 = personalCreator.createContact("Pablo", "Toledo", "0943526475", "pablo@example.com");
+        Contact contact2 = companyCreator.createContact("Juan", "TechCorp", "0988888888", "juan@techcorp.com");
+
+        contactManager.addContact(contact1);
+        contactManager.addContact(contact2);
+
+        loadContactsFromManager();
     }
+
     
     private void setUser(Contact user){
         contactManager.setUser(user);
     }
+    
+    private void loadContactsFromManager() {
+        ArrayCustom<Contact> allContacts = contactManager.getAllContacts();
+        for (int i = 0; i < allContacts.getSize(); i++) {
+            contactsObservableList.add(allContacts.get(i));
+        }
+    }
+    
 }
