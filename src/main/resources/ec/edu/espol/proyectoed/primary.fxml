@@ -1,66 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.text.Text?>
 
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.proyectoed.controller.PrimaryController" stylesheets="@styles.css">
-    <!-- Header -->
-    <top>
-        <HBox id="header">
-            <Label text="Mis Contactos" id="header-title"/>
-            <TextField fx:id="searchField" promptText="Buscar contacto" id="search-field"/>
-            <Button text="Añadir Contacto" id="add-contact-button" onAction="#handleCreateContact"/>
-        </HBox>
-    </top>
-
-    <!-- Left Sidebar: Lista de contactos -->
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="ec.edu.espol.proyectoed.PrimaryController">
     <left>
-        <VBox id="contact-list-container">
-            <ListView fx:id="contactListView" id="contact-list"/>
-            <HBox id="navigation-buttons">
-                <Button text="Anterior" onAction="#handlePreviousContact" id="previous-button"/>
-                <Button text="Siguiente" onAction="#handleNextContact" id="next-button"/>
-            </HBox>
+        <VBox spacing="15" style="-fx-padding: 20;">
+           <children>
+               <HBox alignment="CENTER_LEFT" spacing="10">
+                  <children>
+                      <ImageView fx:id="logo" fitHeight="35" fitWidth="35" />
+                      <Label style="-fx-font-size: 20px; -fx-font-weight: bold;" text="Contactos" />
+                  </children>
+               </HBox>
+               <Button style="-fx-background-color: #1a73e8; -fx-text-fill: white;" text="+ Crear contacto" />
+               <Separator />
+               <VBox spacing="8">
+                  <children>
+                      <Label style="-fx-font-weight: bold;" text="Menú" />
+                      <Hyperlink text="Contactos" />
+                      <Hyperlink text="Frecuentes" />
+                  </children>
+               </VBox>
+               <Separator />
+               <VBox spacing="8">
+                  <children>
+                      <Label style="-fx-font-weight: bold;" text="Gestionar" />
+                      <Hyperlink text="Importar" />
+                      <Hyperlink text="Papelera" />
+                  </children>
+               </VBox>
+           </children>
         </VBox>
     </left>
-
-    <!-- Center: Detalles del contacto -->
     <center>
-        <VBox id="contact-details-container">
-            <Label text="Detalles del Contacto" id="details-title"/>
-            
-            <GridPane id="details-grid">
-                <Label text="Nombre:"/>
-                <TextField fx:id="nameField"/>
-                
-                <Label text="Apellido:"/>
-                <TextField fx:id="surnameField"/>
-                
-                <Label text="Teléfono:"/>
-                <TextField fx:id="phoneField"/>
-                
-                <Label text="Correo Electrónico:"/>
-                <TextField fx:id="emailField"/>
-
-                <!-- Sección de atributos adicionales -->
-                <Label text="Atributos adicionales:"/>
-                <ListView fx:id="attributesListView"/>
-
-                <!-- Foto del contacto -->
-                <Label text="Foto:"/>
-                <ImageView fx:id="photoImageView" fitWidth="100" fitHeight="100"/>
-            </GridPane>
+        <VBox spacing="15" style="-fx-padding: 15;">
+           <children>
+               <HBox alignment="CENTER_LEFT" spacing="15" style="-fx-padding: 10;">
+                  <children>
+                      <TextField promptText="Buscar contactos" />
+                      <Button text="🔄" />
+                      <Button text="🔎" />
+                  </children>
+               </HBox>
+               <TableView fx:id="contactsTable" style="-fx-background-color: #ffffff; -fx-border-color: #ddd; -fx-border-radius: 5;">
+                   <columns>
+                        <TableColumn text="Nombre" fx:id="nameColumn" prefWidth="200" />
+                        <TableColumn text="Correo Electrónico" fx:id="emailColumn" prefWidth="300" />
+                        <TableColumn text="Número de Teléfono" fx:id="phoneColumn" prefWidth="200" />
+                        <TableColumn text="Puesto y Empresa" fx:id="jobColumn" prefWidth="200" />
+                   </columns>
+               </TableView>
+           </children>
         </VBox>
     </center>
-
-    <!-- Right Sidebar: Acciones -->
-    <right>
-        <VBox id="actions-container">
-            <Button text="Editar Contacto" onAction="#handleEditContact" id="edit-button"/>
-            <Button text="Eliminar Contacto" onAction="#handleDeleteContact" id="delete-button"/>
-            <Button text="Filtrar Contactos" onAction="#handleFilterContacts" id="filter-button"/>
-            <Button text="Ordenar Contactos" onAction="#handleSortContacts" id="sort-button"/>
-        </VBox>
-    </right>
+    <bottom>
+        <StackPane alignment="BOTTOM_RIGHT" style="-fx-padding: 20;">
+           <children>
+               <Button style="-fx-background-color: #1a73e8; -fx-text-fill: white;" text="+" />
+           </children>
+        </StackPane>
+    </bottom>
 </BorderPane>

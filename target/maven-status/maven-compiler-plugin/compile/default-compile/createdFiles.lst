@@ -18,4 +18,3 @@ ec\edu\espol\proyectoed\model\creators\ContactCreator.class
 ec\edu\espol\proyectoed\model\LinkedListCustom.class
 ec\edu\espol\proyectoed\model\decorator\ContactDecorator.class
 ec\edu\espol\proyectoed\model\PersonalContact.class
-ec\edu\espol\proyectoed\controller\ContactsAgendController.class

@@ -1,6 +1,5 @@
 package ec.edu.espol.proyectoed.model;
 
-import java.util.ArrayList;
 
 /**
  *
@@ -75,4 +74,5 @@ public class ArrayCustom<E> {
     public int getSize() {
         return selfSize;
     }
+    
 }

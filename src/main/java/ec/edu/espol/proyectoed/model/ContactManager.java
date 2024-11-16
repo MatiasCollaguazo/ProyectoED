@@ -7,10 +7,10 @@ package ec.edu.espol.proyectoed.model;
 public class ContactManager {
 
     private static ContactManager instance;
-    private ArrayCustom<Contact> contacts;
     private Contact user;
+    private ArrayCustom<Contact> contacts;
 
-    private ContactManager() {
+    public ContactManager() {
 
     } //singleton :P
 
@@ -27,9 +27,13 @@ public class ContactManager {
         return instance;
     }
 
+    public void setUser(Contact user){
+        this.user = user;
+        this.contacts = user.getContacts();
+    }
+    
     /**
      * Adds a new contact to the list.
-     *
      * @param contact the contact to add
      */
     public void addContact(Contact contact) {
@@ -99,5 +103,9 @@ public class ContactManager {
                 break;
             }
         }
+    }
+
+    public ArrayCustom<Contact> getContacts() {
+        return contacts;
     }
 }
