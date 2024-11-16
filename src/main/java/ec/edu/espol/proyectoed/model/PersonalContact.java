@@ -4,27 +4,14 @@ package ec.edu.espol.proyectoed.model;
  *
  * @author Matías_Collaguazo
  */
-public class PersonalContact extends Contact{
-    private String lastName;
-    public PersonalContact(String firstName, String lastName, String phoneNumber, String email) {
-        super(firstName, phoneNumber, email);
-        this.lastName = lastName;
+//This class operates as a template of the display style of selected contact on the contact agend
+public class PersonalContact extends Contact {
+    private final ContactType type = ContactType.PERSONAL;
+    public PersonalContact() {
+
     }
 
-    public void setFirstName(String firstName) {
-        setName(firstName);
+    public ContactType getType() {
+        return type;
     }
-    
-    public String getFirstName(){
-        return getName();
-    }
-    
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-    
 }

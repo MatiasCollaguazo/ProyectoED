@@ -5,6 +5,7 @@ package ec.edu.espol.proyectoed.model;
  * @author Matías_Collaguazo
  */
 public class NodeCustom<E> {
+
     E data;
     NodeCustom<E> next;
     NodeCustom<E> prev;
@@ -38,9 +39,9 @@ public class NodeCustom<E> {
     public void setPrev(NodeCustom prev) {
         this.prev = prev;
     }
-    
+
     @Override
-    public String toString(){
+    public String toString() {
         return this.getData().toString();
     }
 }

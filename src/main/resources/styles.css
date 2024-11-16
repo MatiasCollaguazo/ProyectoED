@@ -1,0 +1,193 @@
+/* General */
+* {
+    -fx-font-family: "Roboto", "Arial", sans-serif;
+    -fx-padding: 0;
+    -fx-margin: 0;
+    -fx-box-sizing: border-box;
+}
+
+/* Estilos para la barra lateral */
+#sidebar {
+    -fx-background-color: #f8f9fa;
+    -fx-padding: 20;
+    -fx-border-color: #e0e0e0;
+    -fx-border-width: 0 1px 0 0;
+    -fx-min-width: 250px;
+}
+
+#sidebar .label {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-padding: 10 0;
+}
+
+#sidebar .hyperlink {
+    -fx-text-fill: #1a73e8;
+    -fx-font-size: 14px;
+    -fx-padding: 5 10;
+    -fx-border-radius: 5;
+}
+
+#sidebar .hyperlink:hover {
+    -fx-background-color: #e8f0fe;
+    -fx-text-fill: #1a73e8;
+    -fx-cursor: hand;
+}
+
+#sidebar .active {
+    -fx-background-color: #1a73e8;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-border-radius: 5;
+    -fx-padding: 5 10;
+}
+
+#sidebar .button {
+    -fx-background-color: #1a73e8;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-border-radius: 5;
+    -fx-padding: 10 15;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 3, 0.5, 0, 1);
+    -fx-cursor: hand;
+}
+
+#sidebar .button:hover {
+    -fx-background-color: #1558b8;
+}
+
+/* Barra de búsqueda */
+.text-field {
+    -fx-padding: 10;
+    -fx-border-color: #ddd;
+    -fx-border-radius: 5;
+    -fx-background-color: #ffffff;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 2, 0.5, 0, 1);
+}
+
+.text-field:focused {
+    -fx-border-color: #1a73e8;
+    -fx-border-width: 2px;
+}
+
+/* Estilos para los botones */
+.button {
+    -fx-font-size: 14px;
+    -fx-padding: 10 20;
+    -fx-background-color: #1a73e8;
+    -fx-text-fill: white;
+    -fx-border-radius: 5;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 3, 0.5, 0, 1);
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #1558b8;
+}
+
+/* Tabla de contactos */
+.table-view {
+    -fx-border-color: #ddd;
+    -fx-background-color: #ffffff;
+    -fx-padding: 10;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0.5, 0, 1);
+}
+
+.table-view .column-header {
+    -fx-background-color: #f1f1f1;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-padding: 10;
+    -fx-border-color: #e0e0e0;
+    -fx-border-width: 0 0 1px 0;
+    -fx-text-fill: black;
+}
+
+.table-view .table-row-cell {
+    -fx-text-fill: black; 
+}
+
+.table-view .table-row-cell:focused {
+    -fx-background-color: #dceefb;
+    -fx-text-fill: black;
+}
+
+.table-view .table-cell {
+    -fx-text-fill: black;
+}
+
+.table-view .table-cell:focused {
+    -fx-text-fill: black;
+}
+
+.table-view .table-row-cell:focused .table-cell {
+    -fx-text-fill: black;
+}
+
+.table-row-cell:focused {
+    -fx-background-color: #dceefb;
+}
+
+
+/* Botón flotante (FAB) */
+#floating-button {
+    -fx-background-color: #1a73e8;
+    -fx-text-fill: white;
+    -fx-font-size: 18px;
+    -fx-shape: "M 50,0 A 50,50 0 1,1 0,50 A 50,50 0 1,1 50,0";
+    -fx-padding: 15;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 5, 0.5, 2, 2);
+    -fx-cursor: hand;
+}
+
+#floating-button:hover {
+    -fx-background-color: #1558b8;
+}
+
+/* Separadores */
+.separator {
+    -fx-border-color: #ddd;
+    -fx-border-width: 0 0 1px 0;
+    -fx-padding: 10 0;
+}
+
+/* Animaciones */
+.hyperlink, .button, .table-row-cell {
+    -fx-transition: all 0.3s ease-in-out;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    #sidebar {
+        -fx-min-width: 200px;
+    }
+
+    #sidebar .label {
+        -fx-font-size: 14px;
+    }
+
+    #sidebar .hyperlink {
+        -fx-font-size: 12px;
+    }
+
+    .text-field {
+        -fx-font-size: 12px;
+    }
+
+    .button {
+        -fx-padding: 8 15;
+        -fx-font-size: 12px;
+    }
+
+    .button > .graphic {
+        -fx-padding: 0;
+        -fx-background-color: transparent;
+        -fx-border-color: transparent;
+        -fx-alignment: center;
+        -fx-fit-to-height: true;
+        -fx-fit-to-width: true;
+        -fx-preserve-ratio: true; 
+        -fx-scale-shape: true;
+    }
+}
