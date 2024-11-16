@@ -121,14 +121,12 @@
     -fx-text-fill: black;
 }
 
-/* Cambiar color de texto cuando está enfocado */
 .table-view .table-row-cell:focused .table-cell {
-    -fx-text-fill: black; /* Asegurar visibilidad al enfocar */
+    -fx-text-fill: black;
 }
 
-/* Opción adicional para fondo al enfocar */
 .table-row-cell:focused {
-    -fx-background-color: #dceefb; /* Fondo al enfocar */
+    -fx-background-color: #dceefb;
 }
 
 

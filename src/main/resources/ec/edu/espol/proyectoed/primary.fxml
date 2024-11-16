@@ -57,11 +57,11 @@
                </HBox>
                <TableView fx:id="contactsTable" style="-fx-background-color: #ffffff; -fx-border-color: #ddd; -fx-border-radius: 5;">
                    <columns>
-                        <TableColumn fx:id="nameColumn" prefWidth="85.0" text="Nombre" />
-                        <TableColumn fx:id="lastName" prefWidth="125.0" text="Apellido" />
+                        <TableColumn fx:id="nameColumn" prefWidth="100.0" text="Nombre" />
+                        <TableColumn fx:id="lastName" prefWidth="110.0" text="Apellido" />
                         <TableColumn fx:id="phoneColumn" prefWidth="136.0" text="Telefono" />
-                        <TableColumn fx:id="emailColumn" prefWidth="206.0" text="Correo Electronico" />
-                  <TableColumn fx:id="companyColumn" prefWidth="165.0" text="Empresa" />
+                        <TableColumn fx:id="emailColumn" prefWidth="162.0" text="Correo Electronico" />
+                  <TableColumn fx:id="companyColumn" minWidth="0.0" prefWidth="146.0" text="Empresa" />
                    </columns>
                </TableView>
            </children>
