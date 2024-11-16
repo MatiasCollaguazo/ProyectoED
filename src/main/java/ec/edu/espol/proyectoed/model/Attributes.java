@@ -5,7 +5,6 @@ import java.util.ResourceBundle;
 
 public enum Attributes {
     FIRST_NAME,
-    NAME,
     LAST_NAME,
     PHONE_NUMBER,
     EMAIL,

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import java.lang.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.control.*?>
@@ -7,7 +8,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.proyectoed.PrimaryController">
+<BorderPane stylesheets="@../../../../styles.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.proyectoed.PrimaryController">
     <left>
         <VBox spacing="15" style="-fx-padding: 20;">
            <children>
@@ -44,22 +45,30 @@
                   <children>
                       <TextField promptText="Buscar contactos" />
                       <Button text="🔄" />
-                      <Button text="🔎" />
+                  <Button mnemonicParsing="false" prefHeight="32.0" prefWidth="33.0" style="-fx-background-color: transparent;">
+                     <graphic>
+                        <ImageView fx:id="logo1" fitHeight="29.0" fitWidth="34.0">
+                           <image>
+                              <Image url="@../../../../img/lupa.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
                   </children>
                </HBox>
                <TableView fx:id="contactsTable" style="-fx-background-color: #ffffff; -fx-border-color: #ddd; -fx-border-radius: 5;">
                    <columns>
-                        <TableColumn fx:id="nameColumn" prefWidth="131.0" text="Nombre" />
-                        <TableColumn fx:id="emailColumn" prefWidth="163.0" text="Correo Electrónico" />
-                        <TableColumn fx:id="phoneColumn" prefWidth="206.0" text="Número de Teléfono" />
-                        <TableColumn fx:id="jobColumn" prefWidth="400.0" text="Puesto y Empresa" />
+                        <TableColumn fx:id="nameColumn" prefWidth="85.0" text="Nombre" />
+                        <TableColumn fx:id="lastName" prefWidth="125.0" text="Apellido" />
+                        <TableColumn fx:id="phoneColumn" prefWidth="136.0" text="Telefono" />
+                        <TableColumn fx:id="emailColumn" prefWidth="206.0" text="Correo Electronico" />
+                  <TableColumn fx:id="companyColumn" prefWidth="165.0" text="Empresa" />
                    </columns>
                </TableView>
            </children>
         </VBox>
     </center>
     <bottom>
-        <StackPane alignment="BOTTOM_RIGHT" style="-fx-padding: 20;">
+        <StackPane alignment="BOTTOM_RIGHT" prefHeight="57.0" prefWidth="948.0" style="-fx-padding: 20;">
            <children>
                <Button style="-fx-background-color: #1a73e8; -fx-text-fill: white;" text="+" />
            </children>

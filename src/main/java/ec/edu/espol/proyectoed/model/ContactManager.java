@@ -1,5 +1,7 @@
 package ec.edu.espol.proyectoed.model;
 
+import ec.edu.espol.proyectoed.model.creators.ContactCreator;
+
 /**
  *
  * @author Matías_Collaguazo

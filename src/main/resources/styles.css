@@ -1,6 +1,6 @@
 /* General */
 * {
-    -fx-font-family: "Segoe UI", sans-serif;
+    -fx-font-family: "Roboto", "Arial", sans-serif;
     -fx-padding: 0;
     -fx-margin: 0;
     -fx-box-sizing: border-box;
@@ -101,16 +101,34 @@
     -fx-padding: 10;
     -fx-border-color: #e0e0e0;
     -fx-border-width: 0 0 1px 0;
+    -fx-text-fill: black;
 }
 
-.table-row-cell:hover {
-    -fx-background-color: #f0f9ff;
-    -fx-cursor: hand;
+.table-view .table-row-cell {
+    -fx-text-fill: black; 
+}
+
+.table-view .table-row-cell:focused {
+    -fx-background-color: #dceefb;
+    -fx-text-fill: black;
+}
+
+.table-view .table-cell {
+    -fx-text-fill: black;
+}
+
+.table-view .table-cell:focused {
+    -fx-text-fill: black;
+}
+
+.table-view .table-row-cell:focused .table-cell {
+    -fx-text-fill: black;
 }
 
 .table-row-cell:focused {
     -fx-background-color: #dceefb;
 }
+
 
 /* Botón flotante (FAB) */
 #floating-button {
@@ -160,5 +178,16 @@
     .button {
         -fx-padding: 8 15;
         -fx-font-size: 12px;
+    }
+
+    .button > .graphic {
+        -fx-padding: 0;
+        -fx-background-color: transparent;
+        -fx-border-color: transparent;
+        -fx-alignment: center;
+        -fx-fit-to-height: true;
+        -fx-fit-to-width: true;
+        -fx-preserve-ratio: true; 
+        -fx-scale-shape: true;
     }
 }
