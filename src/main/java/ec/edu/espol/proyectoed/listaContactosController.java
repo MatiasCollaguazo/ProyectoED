@@ -4,6 +4,9 @@
  */
 package ec.edu.espol.proyectoed;
 
+import javafx.fxml.FXML;
+import javafx.scene.image.ImageView;
+
 /**
  *
  * @author CltControl

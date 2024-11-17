@@ -18,7 +18,7 @@
                       <Label style="-fx-font-size: 20px; -fx-font-weight: bold;" text="Contactos" />
                   </children>
                </HBox>
-               <Button style="-fx-background-color: #1a73e8; -fx-text-fill: white;" text="+ Crear contacto" />
+               <Button fx:id="createContactButton" onAction="#switchToAddContactController" style="-fx-background-color: #1a73e8; -fx-text-fill: white;" text="+ Crear contacto" />
                <Separator />
                <VBox spacing="8">
                   <children>

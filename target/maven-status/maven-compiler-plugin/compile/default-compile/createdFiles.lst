@@ -1,5 +1,7 @@
 ec\edu\espol\proyectoed\model\decorator\BirthdayDecorator.class
 ec\edu\espol\proyectoed\model\decorator\AddressDecorator.class
+ec\edu\espol\proyectoed\AddContactController.class
+ec\edu\espol\proyectoed\listaContactosController.class
 ec\edu\espol\proyectoed\model\ArrayCustom.class
 ec\edu\espol\proyectoed\model\CompanyContact.class
 module-info.class
@@ -9,6 +11,7 @@ ec\edu\espol\proyectoed\PrimaryController.class
 ec\edu\espol\proyectoed\model\Contact.class
 ec\edu\espol\proyectoed\model\creators\CompanyContactCreator.class
 ec\edu\espol\proyectoed\model\decorator\AdditionalAttributesDecorator.class
+ec\edu\espol\proyectoed\TipoContacto.class
 ec\edu\espol\proyectoed\model\ContactManager.class
 ec\edu\espol\proyectoed\App.class
 ec\edu\espol\proyectoed\SecondaryController.class

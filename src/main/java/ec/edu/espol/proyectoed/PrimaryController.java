@@ -6,13 +6,17 @@ import ec.edu.espol.proyectoed.model.Contact;
 import ec.edu.espol.proyectoed.model.ContactManager;
 import ec.edu.espol.proyectoed.model.creators.CompanyContactCreator;
 import ec.edu.espol.proyectoed.model.creators.PersonalContactCreator;
+import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.*;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.image.ImageView;
@@ -37,6 +41,8 @@ public class PrimaryController implements Initializable{
     private TableColumn<Contact, String> companyColumn;
     @FXML
     private ImageView logo1;
+    @FXML
+    private Button createContactButton;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -53,7 +59,7 @@ public class PrimaryController implements Initializable{
         emailColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAttribute(Attributes.EMAIL.getDisplayName())));
         companyColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAttribute(Attributes.COMPANY_NAME.getDisplayName())));
 
-        // Creadores de contactos
+        // Creadores de contactos 
         PersonalContactCreator personalCreator = new PersonalContactCreator();
         CompanyContactCreator companyCreator = new CompanyContactCreator();
 
@@ -68,8 +74,72 @@ public class PrimaryController implements Initializable{
         contactManager.addContact(companyContact1);
         contactManager.addContact(companyContact2);
         contactManager.addContact(personalContact2);
-        
+
         loadContactsFromManager();
+    }
+    
+    public static void showAlert(Alert.AlertType alertType, String title, String content) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
+    
+    @FXML
+    private void switchToAddContactController(){
+        try {
+        // Cargar el FXML
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/ec/edu/espol/proyectoed/addContactDialog.fxml"));
+        DialogPane dialogPane = fxmlLoader.load();
+        
+        // Crear el diálogo
+        Dialog<ButtonType> dialog = new Dialog<>();
+        dialog.setDialogPane(dialogPane);
+        dialog.setTitle("Agregar Nuevo Contacto");
+        
+        // Mostrar el diálogo y manejar el resultado
+        Optional<ButtonType> clickedButton = dialog.showAndWait();
+        if (clickedButton.isPresent() && clickedButton.get() == ButtonType.OK) {
+            // Obtener el controlador y configurar los eventos
+            AddContactController controller = fxmlLoader.getController();
+            if(!controller.isInputValid()){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error de Validación");
+                alert.setHeaderText("Campos incompletos");
+                alert.setContentText("Por favor complete todos los campos obligatorios.");
+                alert.showAndWait();
+            }else{                
+                // Crear el contacto basado en el tipo seleccionado
+                Contact newContact;
+                if (controller.isPersonalContact()) {
+                    PersonalContactCreator creator = new PersonalContactCreator();
+                    newContact = creator.createContact(
+                        controller.getFirstName(),
+                        controller.getLastName(),
+                        controller.getPhone(),
+                        controller.getEmail()
+                    );
+                } else {
+                    CompanyContactCreator creator = new CompanyContactCreator();
+                    newContact = creator.createContact(
+                        controller.getFirstName(),
+                        controller.getLastName(),
+                        controller.getPhone(),
+                        controller.getEmail(),
+                        controller.getCompany()
+                    );
+                }
+                
+                // Agregar el nuevo contacto
+                contactManager.addContact(newContact);
+                
+                // Actualizar la tabla
+                loadContactsFromManager();
+            }
+        }
+        } catch (IOException e) {
+        showAlert(Alert.AlertType.ERROR, "Error", "Error al cargar el diálogo: " + e.getMessage() + " causado" +e.getCause());
+        }
     }
  
     private void setUser(Contact user){
@@ -82,6 +152,7 @@ public class PrimaryController implements Initializable{
         and then... is compatible with TableView (With default ArrayList class is compatible)
     */
     private void loadContactsFromManager() {
+        contactsObservableList.clear();
         ArrayCustom<Contact> allContacts = contactManager.getAllContacts();
         System.out.println("Cantidad de contactos es: "+allContacts.getSize());
         System.out.println(contactManager.getAllContacts());
