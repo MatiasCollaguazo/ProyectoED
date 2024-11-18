@@ -88,44 +88,10 @@ public class PrimaryController implements Initializable {
 
     @FXML
     private void switchToAddContactController() {
-        try {
-            // Cargar el FXML
-            FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/ec/edu/espol/proyectoed/addContactDialog.fxml"));
-            DialogPane dialogPane = fxmlLoader.load();
-
-            // Crear el diálogo
-            Dialog<ButtonType> dialog = new Dialog<>();
-            dialog.setDialogPane(dialogPane);
-            dialog.setTitle("Agregar Nuevo Contacto");
-
-            // Mostrar el diálogo y manejar el resultado
-            Optional<ButtonType> clickedButton = dialog.showAndWait();
-            if (clickedButton.isPresent() && clickedButton.get() == ButtonType.OK) {
-                // Obtener el controlador y configurar los eventos
-                AddContactController controller = fxmlLoader.getController();
-                if (!controller.isInputValid()) {
-                    showAlert(Alert.AlertType.ERROR, "Error de Validación", "Por favor complete todos los campos obligatorios.");
-                } else {
-                    // Crear el contacto basado en el tipo seleccionado
-                    Contact newContact;
-                    if (controller.isPersonalContact()) {
-                        PersonalContactCreator creator = new PersonalContactCreator();
-                        newContact = creator.createContact(controller.getFirstName(),controller.getLastName(),controller.getPhone(),controller.getEmail());
-                    } else {
-                        CompanyContactCreator creator = new CompanyContactCreator();
-                        newContact = creator.createContact(controller.getFirstName(),controller.getLastName(),controller.getPhone(),controller.getEmail(),controller.getCompany());
-                    }
-
-                    // Agregar el nuevo contacto
-                    contactManager.addContact(newContact);
-
-                    // Actualizar la tabla
-                    loadContactsFromManager();
-                }
-            }
-        } catch (IOException e) {
-            showAlert(Alert.AlertType.ERROR, "Error", "Error al cargar el diálogo: " + e.getMessage() + " causado" + e.getCause());
-        }
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/ec/edu/espol/proyectoed/viewContact.fxml"));
+        //contactManager.addContact(newContact);
+        // Actualizar la tabla
+        loadContactsFromManager();
     }
 
     @FXML

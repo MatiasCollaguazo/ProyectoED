@@ -105,7 +105,7 @@
 }
 
 .table-view .table-row-cell {
-    -fx-text-fill: black; 
+    -fx-text-fill: black;
 }
 
 .table-view .table-row-cell:focused {
@@ -187,7 +187,72 @@
         -fx-alignment: center;
         -fx-fit-to-height: true;
         -fx-fit-to-width: true;
-        -fx-preserve-ratio: true; 
+        -fx-preserve-ratio: true;
         -fx-scale-shape: true;
     }
+}
+
+
+
+/* Estilo general del contenedor principal */
+.main-container {
+    -fx-padding: 20;
+    -fx-background-color: #ffffff;
+    -fx-alignment: center;
+    -fx-spacing: 15;
+}
+
+/* Foto de perfil */
+.profile-circle {
+    -fx-fill: #d9e3f0;
+    -fx-stroke: #b3c3e0;
+    -fx-stroke-width: 2;
+}
+
+.add-photo-button {
+    -fx-background-color: #1a73e8;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-shape: "M 50,0 A 50,50 0 1,1 0,50 A 50,50 0 1,1 50,0";
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 5, 0.5, 2, 2);
+    -fx-cursor: hand;
+}
+
+.add-photo-button:hover {
+    -fx-background-color: #1558b8;
+}
+
+/* Formularios */
+.form-container {
+    -fx-spacing: 10;
+    -fx-padding: 10;
+}
+
+.form-label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #555555;
+}
+
+.text-field {
+    -fx-border-radius: 5;
+    -fx-background-color: #f1f3f4;
+}
+
+.save-button {
+    -fx-background-color: #1a73e8;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-border-radius: 5;
+    -fx-padding: 10 20;
+}
+
+.save-button:hover {
+    -fx-background-color: #1558b8;
+}
+
+.check-box {
+    -fx-font-size: 14px;
+    -fx-text-fill: #555555;
+    -fx-cursor: hand;
 }

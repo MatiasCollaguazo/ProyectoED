@@ -1,7 +1,5 @@
 package ec.edu.espol.proyectoed.model;
 
-import ec.edu.espol.proyectoed.model.creators.ContactCreator;
-
 /**
  *
  * @author Matías_Collaguazo
@@ -43,6 +41,18 @@ public class ContactManager {
             contacts.add(contact);
         } else {
             throw new NullPointerException("Cannot add a null contact. Error ProyectoED Failed01");
+        }
+    }
+    
+        /**
+     * Adds a new contact to the list.
+     * @param contact the contact to add
+     */
+    public void removeContact(Contact contact) {
+        if (contact != null) {
+            
+        } else {
+            throw new NullPointerException("Cannot remove a null contact. Error ProyectoED Failed05");
         }
     }
 
