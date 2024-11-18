@@ -25,7 +25,7 @@ import javafx.scene.control.TextField;
 
 /**
  *
- * @author Gabriela
+ * @author FranciscoAve
  */
 
 public class AddContactController{
@@ -76,7 +76,6 @@ public class AddContactController{
     // Método para validar la entrada
     public boolean isInputValid() {
         if (firstNameField.getText().isEmpty() || 
-            lastNameField.getText().isEmpty() || 
             phoneField.getText().isEmpty()) {
             return false;
         }

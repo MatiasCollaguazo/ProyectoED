@@ -1,5 +1,6 @@
 ec\edu\espol\proyectoed\model\decorator\BirthdayDecorator.class
 ec\edu\espol\proyectoed\model\decorator\AddressDecorator.class
+ec\edu\espol\proyectoed\SearchDialogController.class
 ec\edu\espol\proyectoed\AddContactController.class
 ec\edu\espol\proyectoed\listaContactosController.class
 ec\edu\espol\proyectoed\model\ArrayCustom.class

@@ -43,9 +43,9 @@
            <children>
                <HBox alignment="CENTER_LEFT" spacing="15" style="-fx-padding: 10;">
                   <children>
-                      <TextField promptText="Buscar contactos" />
-                      <Button text="🔄" />
-                  <Button mnemonicParsing="false" prefHeight="32.0" prefWidth="33.0" style="-fx-background-color: transparent;">
+                      <Button onAction="#showSearchDialog" text="Buscar Contacto" />
+                      <Button onAction="#reiniciar" text="🔄" />
+                  <Button fx:id="searchContact" mnemonicParsing="false" prefHeight="32.0" prefWidth="33.0" style="-fx-background-color: transparent;">
                      <graphic>
                         <ImageView fx:id="logo1" fitHeight="29.0" fitWidth="34.0">
                            <image>
