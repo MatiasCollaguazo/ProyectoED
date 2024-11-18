@@ -11,7 +11,8 @@ public enum Attributes {
     ADDRESS,
     COMPANY_NAME,
     BIRTHDAY,
-    COUNTRY;
+    COUNTRY,
+    LABELS;
 
     private static Locale currentLocale = Locale.getDefault();
     private static ResourceBundle bundle = ResourceBundle.getBundle("messages", currentLocale);

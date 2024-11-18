@@ -4,14 +4,15 @@ package ec.edu.espol.proyectoed.model;
  *
  * @author Matías_Collaguazo
  */
-public class ContactManager {
+public class ContactManager implements Subject{
 
     private static ContactManager instance;
+    private LinkedListCustom<Observer> observers = new LinkedListCustom<>();
     private Contact user;
-    private ArrayCustom<Contact> contacts;
+    private LinkedListCustom<Contact> contacts;
 
-    public ContactManager() {
-
+    private ContactManager() {
+        contacts = new LinkedListCustom<>();
     } //singleton :P
 
     /**
@@ -32,11 +33,15 @@ public class ContactManager {
         this.contacts = user.getContacts();
     }
     
+    public Contact getUser(){
+        return user;
+    }
+    
     /**
      * Adds a new contact to the list.
      * @param contact the contact to add
      */
-    public void addContact(Contact contact) {
+    public synchronized void addContact(Contact contact) {
         if (contact != null) {
             contacts.add(contact);
         } else {
@@ -48,7 +53,7 @@ public class ContactManager {
      * Adds a new contact to the list.
      * @param contact the contact to add
      */
-    public void removeContact(Contact contact) {
+    public synchronized void removeContact(Contact contact) {
         if (contact != null) {
             
         } else {
@@ -117,8 +122,34 @@ public class ContactManager {
         }
     }
 
-    public ArrayCustom<Contact> getAllContacts() {
+    public synchronized LinkedListCustom<Contact> getAllContacts() {
+        if (contacts == null) {
+            contacts = new LinkedListCustom<>();
+        }
         return contacts;
     }
-    
+
+    // Método para agregar un observador
+    @Override
+    public void addObserver(Observer observer) {
+        observers.add(observer);
+    }
+
+    // Método para eliminar un observador
+    @Override
+    public void removeObserver(Observer observer) {
+        observers.remove(observer);
+    }
+
+    @Override
+    public synchronized void notifyObservers() {
+        if (observers.getSize() == 0) {
+            return; //No hay observadores :p
+        }
+        for (int i = 0; i < observers.getSize(); i++) {
+            Observer observer = observers.get(i);
+            observer.update();
+        }
+    }
+
 }

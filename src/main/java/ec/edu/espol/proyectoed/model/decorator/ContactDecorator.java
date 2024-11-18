@@ -26,4 +26,6 @@ public abstract class ContactDecorator extends Contact {
     public LinkedListCustom<ContactAttribute<String, String>> getAdditionalAttributes() {
         return decoratedContact.getAdditionalAttributes();
     }
+    
+    public abstract void addComponent();
 }

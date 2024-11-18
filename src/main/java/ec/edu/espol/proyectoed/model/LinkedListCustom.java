@@ -52,11 +52,11 @@ public class LinkedListCustom<E> {
     }
 
     public E get(int i) {
-        if (i < 1 || i > selfSize) {
+        if (i < 0 || i >= selfSize) { // Validación 0-based
             throw new IndexOutOfBoundsException("Index out of bounds...");
         }
         NodeCustom<E> current = head;
-        for (int index = 1; index < i; index++) {
+        for (int index = 0; index < i; index++) { // Ajuste para índices 0-based
             current = current.getNext();
         }
         return current.getData();
@@ -122,6 +122,46 @@ public class LinkedListCustom<E> {
             }
         }
         selfSize--;
+    }
+
+    public boolean remove(E element) {
+        if (head == null) {
+            return false;
+        }
+
+        NodeCustom<E> current = head;
+        while (current != null) {
+            if (current.getData().equals(element)) {
+                NodeCustom<E> prevNode = current.getPrev();
+                NodeCustom<E> nextNode = current.getNext();
+
+                if (current == head) {
+                    head = nextNode;
+                    if (head != null) {
+                        head.setPrev(null);
+                    }
+                } else {
+                    prevNode.setNext(nextNode);
+                    if (nextNode != null) {
+                        nextNode.setPrev(prevNode);
+                    }
+                }
+
+                // Si el nodo a eliminar es el último
+                if (current == last) {
+                    last = prevNode;
+                    if (last != null) {
+                        last.setNext(null);
+                    }
+                }
+
+                selfSize--;
+                return true;
+            }
+            current = current.getNext();
+        }
+
+        return false;
     }
 
     public void removeLast() throws Exception {

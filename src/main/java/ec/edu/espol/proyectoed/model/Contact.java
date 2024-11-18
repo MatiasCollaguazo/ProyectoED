@@ -9,7 +9,7 @@ import java.util.Map;
  */
 public abstract class Contact {
 
-    private ArrayCustom<Contact> contacts = new ArrayCustom<>();
+    private LinkedListCustom<Contact> contacts = new LinkedListCustom<>();
     private LinkedListCustom< ContactAttribute<String, String>> mainAttributes;
     private LinkedListCustom< ContactAttribute<String, String>> additionalAttributes;
     
@@ -34,7 +34,7 @@ public abstract class Contact {
         return additionalAttributes;
     }
 
-    public ArrayCustom getContacts() {
+    public LinkedListCustom getContacts() {
         return contacts;
     }
 

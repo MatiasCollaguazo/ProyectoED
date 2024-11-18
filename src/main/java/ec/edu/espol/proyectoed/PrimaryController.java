@@ -1,9 +1,10 @@
 package ec.edu.espol.proyectoed;
 
-import ec.edu.espol.proyectoed.model.ArrayCustom;
 import ec.edu.espol.proyectoed.model.Attributes;
 import ec.edu.espol.proyectoed.model.Contact;
 import ec.edu.espol.proyectoed.model.ContactManager;
+import ec.edu.espol.proyectoed.model.LinkedListCustom;
+import ec.edu.espol.proyectoed.model.Observer;
 import ec.edu.espol.proyectoed.model.creators.CompanyContactCreator;
 import ec.edu.espol.proyectoed.model.creators.PersonalContactCreator;
 import java.io.IOException;
@@ -21,10 +22,11 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.image.ImageView;
 
-public class PrimaryController implements Initializable {
+public class PrimaryController implements Initializable, Observer {
 
-    private final ContactManager contactManager = new ContactManager();
+    private final ContactManager contactManager = ContactManager.getInstance();
     private final ObservableList<Contact> contactsObservableList = FXCollections.observableArrayList();
+    private final Contact USER;
 
     @FXML
     private ImageView logo;
@@ -35,15 +37,40 @@ public class PrimaryController implements Initializable {
     @FXML
     private TableColumn<Contact, String> phoneColumn;
     @FXML
-    private TableView<Contact> contactsTable;
+    private TableView<Contact> contactsTable = new TableView();
     @FXML
     private TableColumn<Contact, String> lastName;
     @FXML
     private TableColumn<Contact, String> companyColumn;
     @FXML
-    private ImageView logo1;
-    @FXML
     private Button createContactButton;
+    @FXML
+    private Button searchContact;
+    @FXML
+    private ImageView logo1;
+
+    public PrimaryController() {
+        PersonalContactCreator personalCreator = new PersonalContactCreator();
+        //USUARIO Y CONTACTOS CREADOS A FIN DE PRUEBAS, ESTO DEBERIA MEJORARSE CON UN .json QUE ALMACENACE ESTOOS DATOS DE FORMA DINAMICA
+        //ASEGURA SOLO CREAR UNA SOLA VEZ EL USUARIO Y SUS CONTACTOS, SI AÑADE MAS CONTACTOS DEPENDE DE CREAR CONTACTO
+        if (contactManager.getUser() == null) {
+            this.USER = personalCreator.createContact("Matías", "Collaguazo", "0912345678", "matias@example.com");
+            setUser(USER); 
+            CompanyContactCreator companyCreator = new CompanyContactCreator();
+            Contact personalContact1 = personalCreator.createContact("Pablo", "Menéndez", "0998765432", "pablo@example.com");
+            Contact companyContact1 = companyCreator.createContact("Juan", "Peréz", "0987654321", "info@scheel.com", "Scheel Constructora");
+            Contact companyContact2 = companyCreator.createContact("Carla", "Santacruz", "0943526478", "info@scheel.com", "Scheel Constructora");
+            Contact personalContact2 = personalCreator.createContact("Santiago", "Menéndez", "0943565374");
+            setUser(USER);
+            contactManager.addContact(personalContact1);
+            contactManager.addContact(companyContact1);
+            contactManager.addContact(companyContact2);
+            contactManager.addContact(personalContact2);
+        } else {
+            this.USER = contactManager.getUser();
+        }
+        //FIN PRUEBAS
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -60,22 +87,7 @@ public class PrimaryController implements Initializable {
         emailColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAttribute(Attributes.EMAIL.getDisplayName())));
         companyColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAttribute(Attributes.COMPANY_NAME.getDisplayName())));
 
-        // Creadores de contactos 
-        PersonalContactCreator personalCreator = new PersonalContactCreator();
-        CompanyContactCreator companyCreator = new CompanyContactCreator();
-
-        Contact USER = personalCreator.createContact("Matías", "Collaguazo", "0912345678", "matias@example.com");
-        Contact personalContact1 = personalCreator.createContact("Pablo", "Menéndez", "0998765432", "pablo@example.com");
-        Contact companyContact1 = companyCreator.createContact("Juan", "Peréz", "0987654321", "info@scheel.com", "Scheel Constructora");
-        Contact companyContact2 = companyCreator.createContact("Carla", "Santacruz", "0943526478", "info@scheel.com", "Scheel Constructora");
-        Contact personalContact2 = personalCreator.createContact("Santiago", "Menéndez", "0943565374");
-        // Agregar contactos a la lista observable
-        setUser(USER);
-        contactManager.addContact(personalContact1);
-        contactManager.addContact(companyContact1);
-        contactManager.addContact(companyContact2);
-        contactManager.addContact(personalContact2);
-
+        System.out.println("Load by initialize");
         loadContactsFromManager();
     }
 
@@ -88,11 +100,14 @@ public class PrimaryController implements Initializable {
 
     @FXML
     private void switchToAddContactController() {
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/ec/edu/espol/proyectoed/viewContact.fxml"));
-        //contactManager.addContact(newContact);
-        // Actualizar la tabla
-        loadContactsFromManager();
+        try {
+            App.setRoot("createContact");
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Error", "No se pudo cambiar la vista: " + e.getMessage());
+        }
     }
+
 
     @FXML
     private void showSearchDialog() {
@@ -122,7 +137,7 @@ public class PrimaryController implements Initializable {
                 String searchTerm = controller.getSearchTerm().toLowerCase();
                 
                 contactsObservableList.clear();
-                ArrayCustom<Contact> allContacts = contactManager.getAllContacts();
+                LinkedListCustom<Contact> allContacts = contactManager.getAllContacts();
                  
                 //Revisar por cada cntacto alguna coincidencia dependiendo de los criterios
                 for (int i = 0; i < allContacts.getSize(); i++) {
@@ -176,7 +191,7 @@ public class PrimaryController implements Initializable {
      */
     private void loadContactsFromManager() {
         contactsObservableList.clear();
-        ArrayCustom<Contact> allContacts = contactManager.getAllContacts();
+        LinkedListCustom<Contact> allContacts = contactManager.getAllContacts();
         System.out.println("Cantidad de contactos es: " + allContacts.getSize());
         System.out.println(contactManager.getAllContacts());
         ObservableList<Contact> observableContacts = FXCollections.observableArrayList();
@@ -187,6 +202,11 @@ public class PrimaryController implements Initializable {
 
         contactsObservableList.addAll(observableContacts);
         contactsTable.setItems(contactsObservableList);
+    }
+    
+    @Override
+    public void update() {
+        loadContactsFromManager();
     }
 
 }

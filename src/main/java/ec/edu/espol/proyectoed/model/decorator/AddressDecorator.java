@@ -14,4 +14,10 @@ public class AddressDecorator extends ContactDecorator {
         super(decoratedContact);
         this.decoratedContact.getAdditionalAttributes().add(new ContactAttribute<>(Attributes.ADDRESS.getDisplayName(), address));
     }
+
+    @Override
+    public void addComponent() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+    
 }
