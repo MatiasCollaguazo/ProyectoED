@@ -4,7 +4,6 @@ import ec.edu.espol.proyectoed.model.Attributes;
 import ec.edu.espol.proyectoed.model.Contact;
 import ec.edu.espol.proyectoed.model.ContactManager;
 import ec.edu.espol.proyectoed.model.LinkedListCustom;
-import ec.edu.espol.proyectoed.model.Observer;
 import ec.edu.espol.proyectoed.model.creators.CompanyContactCreator;
 import ec.edu.espol.proyectoed.model.creators.PersonalContactCreator;
 import java.io.IOException;
@@ -22,7 +21,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.image.ImageView;
 
-public class PrimaryController implements Initializable, Observer {
+public class PrimaryController implements Initializable {
 
     private final ContactManager contactManager = ContactManager.getInstance();
     private final ObservableList<Contact> contactsObservableList = FXCollections.observableArrayList();
@@ -55,7 +54,7 @@ public class PrimaryController implements Initializable, Observer {
         //ASEGURA SOLO CREAR UNA SOLA VEZ EL USUARIO Y SUS CONTACTOS, SI AÑADE MAS CONTACTOS DEPENDE DE CREAR CONTACTO
         if (contactManager.getUser() == null) {
             this.USER = personalCreator.createContact("Matías", "Collaguazo", "0912345678", "matias@example.com");
-            setUser(USER); 
+            setUser(USER);
             CompanyContactCreator companyCreator = new CompanyContactCreator();
             Contact personalContact1 = personalCreator.createContact("Pablo", "Menéndez", "0998765432", "pablo@example.com");
             Contact companyContact1 = companyCreator.createContact("Juan", "Peréz", "0987654321", "info@scheel.com", "Scheel Constructora");
@@ -81,14 +80,28 @@ public class PrimaryController implements Initializable, Observer {
         emailColumn.setText(Attributes.EMAIL.getDisplayName());
         companyColumn.setText(Attributes.COMPANY_NAME.getDisplayName());
 
-        nameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAttribute(Attributes.FIRST_NAME.getDisplayName())));
-        lastName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAttribute(Attributes.LAST_NAME.getDisplayName())));
-        phoneColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAttribute(Attributes.PHONE_NUMBER.getDisplayName())));
-        emailColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAttribute(Attributes.EMAIL.getDisplayName())));
-        companyColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAttribute(Attributes.COMPANY_NAME.getDisplayName())));
+        nameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAttribute(Attributes.FIRST_NAME)));
+        lastName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAttribute(Attributes.LAST_NAME)));
+        phoneColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAttribute(Attributes.PHONE_NUMBER)));
+        emailColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAttribute(Attributes.EMAIL)));
+        companyColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAttribute(Attributes.COMPANY_NAME)));
 
-        System.out.println("Load by initialize");
+        contactsTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         loadContactsFromManager();
+
+        contactsTable.setOnMouseClicked(event -> {
+            if (event.getClickCount() == 1) {
+                Contact selectedContact = contactsTable.getSelectionModel().getSelectedItem();
+                if (selectedContact != null) {
+                    contactManager.setCurrentSelectedContact(selectedContact);
+                    try {
+                        App.setRoot("viewContact");
+                    } catch (IOException e) {
+                        showAlert(Alert.AlertType.ERROR, "Error", "No se pudo cambiar la vista: " + e.getMessage());
+                    }
+                }
+            }
+        });
     }
 
     public static void showAlert(Alert.AlertType alertType, String title, String content) {
@@ -108,79 +121,12 @@ public class PrimaryController implements Initializable, Observer {
         }
     }
 
-
-    @FXML
-    private void showSearchDialog() {
-        try {
-            // Cargar el FXML
-            FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/ec/edu/espol/proyectoed/searchDialog.fxml"));
-            DialogPane dialogPane = fxmlLoader.load();
-            showAlert(Alert.AlertType.CONFIRMATION, "Correcto", "se ingreso correctamente");
-            
-            // Crear el diálogo
-            Dialog<ButtonType> dialog = new Dialog<>();
-            dialog.setDialogPane(dialogPane);
-            dialog.setTitle("Buscar Contacto");
-            
-            // Mostrar el diálogo y manejar el resultado
-            Optional<ButtonType> clickedButton = dialog.showAndWait();
-            if (clickedButton.isPresent() && clickedButton.get() == ButtonType.OK) {
-                // Obtener el controlador y configurar los eventos
-                SearchDialogController controller = fxmlLoader.getController();
-                if (!controller.isInputValid()) {
-                    showAlert(Alert.AlertType.ERROR, "Error", "Por favor complete todos los campos de búsqueda.");
-                    return;
-                }
-                
-                //Obtener los datos de la interfaz
-                String criteria = controller.getSearchCriteria();
-                String searchTerm = controller.getSearchTerm().toLowerCase();
-                
-                contactsObservableList.clear();
-                LinkedListCustom<Contact> allContacts = contactManager.getAllContacts();
-                 
-                //Revisar por cada cntacto alguna coincidencia dependiendo de los criterios
-                for (int i = 0; i < allContacts.getSize(); i++) {
-                    Contact contact = allContacts.get(i);
-                    boolean result = false;
-
-                    switch (criteria) {
-                        case "Nombre":
-                            result = contact.getAttribute("Nombre").toLowerCase().contains(searchTerm);
-                            break;
-                        case "Apellido":
-                            result = contact.getAttribute("Apellido").toLowerCase().contains(searchTerm);
-                            break;
-                        case "Teléfono":
-                            result = contact.getAttribute("Teléfono").contains(searchTerm);
-                            break;
-                        case "Tipo de Contacto (Personal/Empresa)":
-                            String tipo = contact.getAttribute("Empresa").isEmpty() ? "personal" : "empresa";
-                            result = searchTerm.contains(tipo);
-                            break;
-                    }
-
-                    if (result) {
-                        contactsObservableList.add(contact);
-                    }
-                }
-
-                if (contactsObservableList.isEmpty()) {
-                    showAlert(Alert.AlertType.INFORMATION, "Búsqueda", "No se encontraron contactos con los criterios especificados. Escriba correctamente 🙂");
-                    loadContactsFromManager(); // Restaurar la lista completa
-                }
-            }
-        } catch (IOException e) {
-            showAlert(Alert.AlertType.ERROR, "Error", "Error al cargar el diálogo de búsqueda: " + e.getCause() + e.getMessage());
-        }
-    }
-
     private void setUser(Contact user) {
         contactManager.setUser(user);
     }
-    
+
     @FXML
-    private void reiniciar(){
+    private void reiniciar() {
         loadContactsFromManager();
     }
 
@@ -203,10 +149,70 @@ public class PrimaryController implements Initializable, Observer {
         contactsObservableList.addAll(observableContacts);
         contactsTable.setItems(contactsObservableList);
     }
-    
-    @Override
-    public void update() {
-        loadContactsFromManager();
-    }
 
+    @FXML
+    private void showSearchDialog() {
+        try {
+            // Cargar el FXML
+            FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/ec/edu/espol/proyectoed/searchDialog.fxml"));
+            DialogPane dialogPane = fxmlLoader.load();
+            showAlert(Alert.AlertType.CONFIRMATION, "Correcto", "se ingreso correctamente");
+
+            // Crear el diálogo
+            Dialog<ButtonType> dialog = new Dialog<>();
+            dialog.setDialogPane(dialogPane);
+            dialog.setTitle("Buscar Contacto");
+
+            // Mostrar el diálogo y manejar el resultado
+            Optional<ButtonType> clickedButton = dialog.showAndWait();
+            if (clickedButton.isPresent() && clickedButton.get() == ButtonType.OK) {
+                // Obtener el controlador y configurar los eventos
+                SearchDialogController controller = fxmlLoader.getController();
+                if (!controller.isInputValid()) {
+                    showAlert(Alert.AlertType.ERROR, "Error", "Por favor complete todos los campos de búsqueda.");
+                    return;
+                }
+
+                //Obtener los datos de la interfaz
+                String criteria = controller.getSearchCriteria();
+                String searchTerm = controller.getSearchTerm().toLowerCase();
+
+                contactsObservableList.clear();
+                LinkedListCustom<Contact> allContacts = contactManager.getAllContacts();
+
+                //Revisar por cada cntacto alguna coincidencia dependiendo de los criterios
+                for (int i = 0; i < allContacts.getSize(); i++) {
+                    Contact contact = allContacts.get(i);
+                    boolean result = false;
+
+                    switch (criteria) {
+                        case "Nombre":
+                            result = contact.getAttribute(Attributes.FIRST_NAME).toLowerCase().contains(searchTerm);
+                            break;
+                        case "Apellido":
+                            result = contact.getAttribute(Attributes.LAST_NAME).toLowerCase().contains(searchTerm);
+                            break;
+                        case "Teléfono":
+                            result = contact.getAttribute(Attributes.PHONE_NUMBER).contains(searchTerm);
+                            break;
+                        case "Tipo de Contacto (Personal/Empresa)":
+                            String tipo = contact.getAttribute(Attributes.COMPANY_NAME).isEmpty() ? "personal" : "empresa";
+                            result = searchTerm.contains(tipo);
+                            break;
+                    }
+
+                    if (result) {
+                        contactsObservableList.add(contact);
+                    }
+                }
+
+                if (contactsObservableList.isEmpty()) {
+                    showAlert(Alert.AlertType.INFORMATION, "Búsqueda", "No se encontraron contactos con los criterios especificados. Escriba correctamente 🙂");
+                    loadContactsFromManager(); // Restaurar la lista completa
+                }
+            }
+        } catch (IOException e) {
+            showAlert(Alert.AlertType.ERROR, "Error", "Error al cargar el diálogo de búsqueda: " + e.getCause() + e.getMessage());
+        }
+    }
 }

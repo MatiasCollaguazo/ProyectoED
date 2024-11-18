@@ -178,6 +178,25 @@ public class LinkedListCustom<E> {
         }
         selfSize--;
     }
+    
+    public int indexOf(E element) {
+        if (head == null) {
+            return -1;
+        }
+
+        NodeCustom<E> current = head;
+        int index = 0;
+
+        do {
+            if (current.getData().equals(element)) {
+                return index;
+            }
+            current = current.getNext();
+            index++;
+        } while (current != head);
+
+        return -1;
+    }
 
     @Override
     public String toString() {

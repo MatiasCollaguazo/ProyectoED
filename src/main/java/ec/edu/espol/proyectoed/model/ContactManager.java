@@ -4,16 +4,16 @@ package ec.edu.espol.proyectoed.model;
  *
  * @author Matías_Collaguazo
  */
-public class ContactManager implements Subject{
+public class ContactManager {
 
     private static ContactManager instance;
-    private LinkedListCustom<Observer> observers = new LinkedListCustom<>();
     private Contact user;
     private LinkedListCustom<Contact> contacts;
+    private Contact currentSelectedContact; //Differs of user in UI
 
     private ContactManager() {
         contacts = new LinkedListCustom<>();
-    } //singleton :P
+    }
 
     /**
      * Provides access to the single instance of ContactManager. If the instance
@@ -28,17 +28,26 @@ public class ContactManager implements Subject{
         return instance;
     }
 
-    public void setUser(Contact user){
+    public void setUser(Contact user) {
         this.user = user;
         this.contacts = user.getContacts();
     }
-    
-    public Contact getUser(){
+
+    public Contact getUser() {
         return user;
     }
-    
+
+    public Contact getCurrentSelectedContact() {
+        return currentSelectedContact;
+    }
+
+    public void setCurrentSelectedContact(Contact currentSelectedContact) {
+        this.currentSelectedContact = currentSelectedContact;
+    }
+
     /**
      * Adds a new contact to the list.
+     *
      * @param contact the contact to add
      */
     public synchronized void addContact(Contact contact) {
@@ -48,14 +57,15 @@ public class ContactManager implements Subject{
             throw new NullPointerException("Cannot add a null contact. Error ProyectoED Failed01");
         }
     }
-    
-        /**
+
+    /**
      * Adds a new contact to the list.
+     *
      * @param contact the contact to add
      */
     public synchronized void removeContact(Contact contact) {
         if (contact != null) {
-            
+
         } else {
             throw new NullPointerException("Cannot remove a null contact. Error ProyectoED Failed05");
         }
@@ -65,16 +75,6 @@ public class ContactManager implements Subject{
         Here can be added a removeContact() method, but
         i don't know if we will use serializableID or an artificial ID
      */
-    public void listContacts() {
-        if (contacts.getSize() == 0) {
-            System.out.println("No contacts available");
-        } else {
-            for (int i = 0; i < contacts.getSize(); i++) {
-                System.out.println(contacts.get(i));
-            }
-        }
-    }
-
     /**
      * @param contact the contact to which the attribute will be added
      * @param attributeName the name of the attribute (e.g., "Facebook",
@@ -87,6 +87,18 @@ public class ContactManager implements Subject{
     }
 
     /**
+     * Adds a atribute to current user contact
+     *
+     * @param attributeName the name of the attribute (e.g., "Facebook",
+     * "Instagram", "Discord)
+     * @param value the value associated with this attribute
+     */
+    public void addAttribute(String attributeName, String value) {
+        ContactAttribute<String, String> attribute = new ContactAttribute<>(attributeName, value);
+        this.getUser().getAdditionalAttributes().add(attribute);
+    }
+
+    /**
      * @param contact the contact from which the attribute is retrieved
      * @param attributeName the name of the attribute
      * @return the value of the attribute or null if it doesn't exist
@@ -94,6 +106,22 @@ public class ContactManager implements Subject{
     public String getAttribute(Contact contact, String attributeName) {
         for (int i = 0; i < contact.getAdditionalAttributes().getSize(); i++) {
             ContactAttribute<String, String> attribute = (ContactAttribute<String, String>) contact.getAdditionalAttributes().get(i);
+            if (attribute.getAttributeName().equals(attributeName)) {
+                return attribute.getValue();
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Gets the attribute from the current user contact
+     *
+     * @param attributeName the name of the attribute
+     * @return the value of the attribute or null if it doesn't exist
+     */
+    public String getAttribute(String attributeName) {
+        for (int i = 0; i < this.getUser().getAdditionalAttributes().getSize(); i++) {
+            ContactAttribute<String, String> attribute = (ContactAttribute<String, String>) this.getUser().getAdditionalAttributes().get(i);
             if (attribute.getAttributeName().equals(attributeName)) {
                 return attribute.getValue();
             }
@@ -128,28 +156,4 @@ public class ContactManager implements Subject{
         }
         return contacts;
     }
-
-    // Método para agregar un observador
-    @Override
-    public void addObserver(Observer observer) {
-        observers.add(observer);
-    }
-
-    // Método para eliminar un observador
-    @Override
-    public void removeObserver(Observer observer) {
-        observers.remove(observer);
-    }
-
-    @Override
-    public synchronized void notifyObservers() {
-        if (observers.getSize() == 0) {
-            return; //No hay observadores :p
-        }
-        for (int i = 0; i < observers.getSize(); i++) {
-            Observer observer = observers.get(i);
-            observer.update();
-        }
-    }
-
 }

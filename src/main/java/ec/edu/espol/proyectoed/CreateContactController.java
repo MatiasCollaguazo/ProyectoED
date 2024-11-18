@@ -3,7 +3,6 @@ package ec.edu.espol.proyectoed;
 import static ec.edu.espol.proyectoed.PrimaryController.showAlert;
 import ec.edu.espol.proyectoed.model.Contact;
 import ec.edu.espol.proyectoed.model.ContactManager;
-import ec.edu.espol.proyectoed.model.Observer;
 import ec.edu.espol.proyectoed.model.creators.CompanyContactCreator;
 import ec.edu.espol.proyectoed.model.creators.PersonalContactCreator;
 import java.io.IOException;
@@ -19,12 +18,14 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+
 /**
  * FXML Controller class
  *
  * @author matia
  */
-public class CreateContactController implements Initializable{
+public class CreateContactController implements Initializable {
+
     @FXML
     private ImageView logo;
     @FXML
@@ -57,15 +58,15 @@ public class CreateContactController implements Initializable{
      * Initializes the controller class.
      */
     private final ContactManager contactManager = ContactManager.getInstance();
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
-    
+    }
+
     @FXML
     private void switchToAddContactController(ActionEvent event) {
     }
-
 
     @FXML
     private void loadContactImage(ActionEvent event) {
@@ -131,7 +132,4 @@ public class CreateContactController implements Initializable{
         companyFieldContainer.setVisible(false);
         companyFieldContainer.setManaged(false);
     }
-
-
-
 }
