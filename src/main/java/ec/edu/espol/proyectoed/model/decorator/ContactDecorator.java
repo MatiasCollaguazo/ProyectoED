@@ -27,5 +27,6 @@ public abstract class ContactDecorator extends Contact {
         return decoratedContact.getAdditionalAttributes();
     }
     
+    
     public abstract void addComponent();
 }

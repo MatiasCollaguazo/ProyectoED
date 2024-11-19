@@ -125,8 +125,16 @@
                                     <TextField fx:id="phoneField" promptText="Teléfono" />
                                 </children>
                              </HBox>
-                             <!-- Botón para guardar -->
-                             <Button fx:id="saveButton" onAction="#saveContact" styleClass="save-button" text="Guardar" />
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                                   <!-- Botón para guardar -->
+                                   <Button fx:id="saveButton" onAction="#saveContact" styleClass="save-button" text="Guardar">
+                                 <padding>
+                                    <Insets right="100.0" />
+                                 </padding>
+                              </Button>
+                           </children>
+                        </HBox>
                          </children>
                       </VBox>
                   <VBox fx:id="additionalAttributsContainer" prefHeight="396.0" prefWidth="381.0">

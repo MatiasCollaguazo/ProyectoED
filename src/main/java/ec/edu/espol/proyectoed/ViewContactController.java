@@ -58,6 +58,10 @@ public class ViewContactController implements Initializable {
     private Button previousButton;
     @FXML
     private Button nextButton;
+    @FXML
+    private Button removeButton;
+    @FXML
+    private ImageView contactImageView2;
 
     /**
      * Inicializa el controlador
@@ -158,4 +162,24 @@ public class ViewContactController implements Initializable {
         }
         return null;
     }
+
+    @FXML
+    private void removeContact(ActionEvent event) {
+        if (currentContact == null) {
+            showAlert(Alert.AlertType.WARNING, "Eliminar Contacto", "No hay contacto seleccionado para eliminar.");
+            return;
+        }
+
+        try {
+            LinkedListCustom<Contact> allContacts = contactManager.getAllContacts();
+            allContacts.remove(currentContact);
+            nextContact();
+            showAlert(Alert.AlertType.INFORMATION, "Eliminar Contacto", "El contacto fue eliminado con éxito.");
+
+            switchToPrimaryView(event);
+        } catch (Exception e) {
+            showAlert(Alert.AlertType.ERROR, "Error", "No se pudo eliminar el contacto: " + e.getMessage());
+        }
+    }
+
 }

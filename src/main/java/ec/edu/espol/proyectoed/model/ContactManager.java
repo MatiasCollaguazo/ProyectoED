@@ -156,4 +156,17 @@ public class ContactManager {
         }
         return contacts;
     }
+    
+    //2)Funcionalidad para visualizar la lista de contactos.
+    //En realidad ya esta implementado en la interfaz gráfica
+    public void listContacts() { 
+        if (contacts.getSize() == 0) {
+            System.out.println("No contacts available");
+        } else {
+            for (int i = 0; i < contacts.getSize(); i++) {
+                System.out.println(contacts.get(i));
+            }
+        }
+    }
+    
 }

@@ -3,6 +3,9 @@ package ec.edu.espol.proyectoed.model;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+
+//1)Diseño e implementación de las clases para representar a los contactos y sus atributos
+//Creado a traves de enumeración para poder crear quiza una función de internacionalización
 public enum Attributes {
     FIRST_NAME,
     LAST_NAME,
