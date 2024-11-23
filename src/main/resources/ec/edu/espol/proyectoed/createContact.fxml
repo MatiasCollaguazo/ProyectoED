@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.*?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane stylesheets="@../../../../styles.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.proyectoed.CreateContactController">
+    <!-- Panel Izquierdo (Sin cambios) -->
+    <left>
+        <VBox spacing="15" style="-fx-padding: 20;">
+            <children>
+                <HBox alignment="CENTER_LEFT" spacing="10">
+                    <children>
+                        <ImageView fx:id="logo" fitHeight="35" fitWidth="35" />
+                        <Label style="-fx-font-size: 20px; -fx-font-weight: bold;" text="Contactos" />
+                    </children>
+                </HBox>
+                <Button fx:id="createContactButton" onAction="#switchToAddContactController" style="-fx-background-color: #1a73e8; -fx-text-fill: white;" text="+ Crear contacto" />
+                <Separator />
+                <VBox spacing="8">
+                    <children>
+                        <Label style="-fx-font-weight: bold;" text="Menú" />
+                        <Hyperlink text="Contactos" />
+                        <Hyperlink text="Frecuentes" />
+                    </children>
+                </VBox>
+                <Separator />
+                <VBox spacing="8">
+                    <children>
+                        <Label style="-fx-font-weight: bold;" text="Gestionar" />
+                        <Hyperlink text="Importar" />
+                        <Hyperlink text="Papelera" />
+                    </children>
+                </VBox>
+            </children>
+        </VBox>
+    </left>
+
+    <!-- Panel Central: Formulario de Creación -->
+    <center>
+        <VBox spacing="15" style="-fx-padding: 20;">
+            <children>
+                <HBox alignment="CENTER_LEFT" spacing="15" style="-fx-padding: 10;">
+                    <children>
+                  <Button fx:id="return_back" contentDisplay="CENTER" mnemonicParsing="false" onAction="#switchToPrmiaryView" pickOnBounds="false" style="-fx-background-color: transparent;">
+                     <graphic>
+                        <ImageView fx:id="contactImageView1" fitHeight="27.0" fitWidth="22.0" style="-fx-border-color: gray; -fx-border-width: 1px;">
+                           <image>
+                              <Image url="@../../../../img/return_back.png" />
+                           </image>
+                           <effect>
+                              <Blend />
+                           </effect>
+                        </ImageView>
+                     </graphic>
+                     <effect>
+                        <Blend />
+                     </effect>
+                  </Button>
+                        <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Crear Contacto" />
+                    </children>
+                </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                      <VBox alignment="TOP_LEFT" maxWidth="400" spacing="15" styleClass="form-container">
+                         <children>
+                             <!-- Campo Imagen del Contacto -->
+                             <HBox alignment="CENTER" spacing="10">
+                                <children>
+                                    <ImageView fx:id="contactImageView" fitHeight="100" fitWidth="100" style="-fx-border-color: gray; -fx-border-width: 1px;">
+                                 <image>
+                                    <Image url="@../../../../img/user_default.png" />
+                                 </image>
+                              </ImageView>
+                                    <VBox alignment="CENTER" spacing="5">
+                                       <children>
+                                           <Button onAction="#loadContactImage" text="Cargar Imagen" />
+                                           <Label style="-fx-font-size: 10px;" text="(Tamaño recomendado: 100x100)" />
+                                       </children>
+                                    </VBox>
+                                </children>
+                             </HBox>
+                             <!-- Campo Nombre -->
+                             <HBox alignment="CENTER_LEFT" spacing="10">
+                                <children>
+                                    <Label styleClass="form-label" text="Nombre" />
+                                    <TextField fx:id="nameField" promptText="Nombre" />
+                                </children>
+                             </HBox>
+                             <!-- Campo Apellidos -->
+                             <HBox alignment="CENTER_LEFT" spacing="10">
+                                <children>
+                                    <Label styleClass="form-label" text="Apellidos" />
+                                    <TextField fx:id="lastNameField" promptText="Apellidos" />
+                                </children>
+                             </HBox>
+                             <!-- Checkbox para decidir si es contacto de empresa -->
+                             <HBox alignment="CENTER" spacing="10">
+                                <children>
+                                    <CheckBox fx:id="isCompanyCheckBox" contentDisplay="CENTER" onAction="#toggleCompanyField" text="Es contacto de empresa" />
+                                </children>
+                             </HBox>
+                             <!-- Campo Empresa (oculto inicialmente) -->
+                             <HBox fx:id="companyFieldContainer" alignment="CENTER_LEFT" managed="false" spacing="10" visible="false">
+                                <children>
+                                    <Label styleClass="form-label" text="Empresa" />
+                                    <TextField fx:id="companyField" promptText="Nombre de la empresa" />
+                                </children>
+                             </HBox>
+                             <!-- Campo Correo Electrónico -->
+                             <HBox alignment="CENTER_LEFT" spacing="10">
+                                <children>
+                                    <Label styleClass="form-label" text="Correo" />
+                                    <TextField fx:id="emailField" promptText="Correo electrónico" />
+                                </children>
+                             </HBox>
+                             <!-- Campo Teléfono -->
+                             <HBox alignment="CENTER_LEFT" spacing="10">
+                                <children>
+                                    <Label styleClass="form-label" text="Teléfono" />
+                                    <TextField fx:id="phoneField" promptText="Teléfono" />
+                                </children>
+                             </HBox>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                                   <!-- Botón para guardar -->
+                                   <Button fx:id="saveButton" onAction="#saveContact" styleClass="save-button" text="Guardar">
+                                 <padding>
+                                    <Insets right="100.0" />
+                                 </padding>
+                              </Button>
+                           </children>
+                        </HBox>
+                         </children>
+                      </VBox>
+                  <VBox fx:id="additionalAttributsContainer" prefHeight="396.0" prefWidth="381.0">
+                     <HBox.margin>
+                        <Insets left="70.0" />
+                     </HBox.margin>
+                  </VBox>
+               </children>
+            </HBox>
+            </children>
+        </VBox>
+    </center>
+
+    <!-- Panel Inferior (Sin cambios) -->
+    <bottom>
+        <StackPane alignment="BOTTOM_RIGHT" prefHeight="57.0" prefWidth="948.0" style="-fx-padding: 20;">
+            <children>
+                <Button style="-fx-background-color: #1a73e8; -fx-text-fill: white;" text="+" />
+            </children>
+        </StackPane>
+    </bottom>
+</BorderPane>

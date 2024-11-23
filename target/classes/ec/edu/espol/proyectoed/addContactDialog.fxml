@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+ 
+<DialogPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="ec.edu.espol.proyectoed.AddContactController">
+    <headerText>Ingrese los datos del nuevo contacto</headerText>
+    <buttonTypes>
+        <ButtonType fx:constant="OK"/>
+        <ButtonType fx:constant="CANCEL"/>
+    </buttonTypes>
+    <content>
+        <GridPane hgap="10" vgap="10">
+            <padding>
+                <Insets left="20" right="20" top="20" bottom="20"/>
+            </padding>
+            
+            <Label text="Nombre:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+            <TextField fx:id="firstNameField" GridPane.columnIndex="1" GridPane.rowIndex="0"
+                      promptText="Ingrese el nombre"/>
+            
+            <Label text="Apellido:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+            <TextField fx:id="lastNameField" GridPane.columnIndex="1" GridPane.rowIndex="1"
+                      promptText="Ingrese el apellido"/>
+            
+            <Label text="Teléfono:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+            <TextField fx:id="phoneField" GridPane.columnIndex="1" GridPane.rowIndex="2"
+                      promptText="Ingrese el teléfono"/>
+            
+            <Label text="Email:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+            <TextField fx:id="emailField" GridPane.columnIndex="1" GridPane.rowIndex="3"
+                      promptText="Ingrese el email"/>
+            
+            <Label text="Empresa:" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+            <TextField fx:id="companyField" GridPane.columnIndex="1" GridPane.rowIndex="4"
+                      promptText="Ingrese la empresa"/>
+            
+            <RadioButton fx:id="personalRadio" text="Contacto Personal" selected="true" 
+                        GridPane.columnIndex="0" GridPane.rowIndex="5">
+                <toggleGroup>
+                    <ToggleGroup fx:id="contactType"/>
+                </toggleGroup>
+            </RadioButton>
+            <RadioButton fx:id="companyRadio" text="Contacto Empresarial" 
+                        GridPane.columnIndex="1" GridPane.rowIndex="5" 
+                        toggleGroup="$contactType"/>
+        </GridPane>
+    </content>
+</DialogPane>

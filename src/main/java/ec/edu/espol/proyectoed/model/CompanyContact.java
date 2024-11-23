@@ -4,19 +4,14 @@ package ec.edu.espol.proyectoed.model;
  *
  * @author Matías_Collaguazo
  */
-public class CompanyContact extends Contact{
-    private String companyName;
-    public CompanyContact(String name, String companyName, String phoneNumber, String email) {
-        super(name, phoneNumber, email);
-        this.companyName = companyName;
-    }
+//This class operates as a template of the display style of selected contact on the contact agend
+public class CompanyContact extends Contact {
+    private final ContactType type = ContactType.COMPANY;
+    public CompanyContact() {
 
-    public String getCompanyName() {
-        return companyName;
-    }
-
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
     }
     
+    public ContactType getType(){
+        return type;
+    }
 }

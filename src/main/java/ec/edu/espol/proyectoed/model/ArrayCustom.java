@@ -1,18 +1,19 @@
 package ec.edu.espol.proyectoed.model;
 
-import java.util.ArrayList;
 
 /**
  *
  * @author Matías_Collaguazo
  */
 public class ArrayCustom<E> {
+
     private int selfSize = 0;
     private E[] array;
 
     public ArrayCustom() {
         array = (E[]) new Object[2];
     }
+
     public void add(E element) {
         if (selfSize == array.length) {
             expandCapacity();
@@ -57,7 +58,6 @@ public class ArrayCustom<E> {
         return array[index];
     }
 
-    
     @Override
     public String toString() {
         StringBuilder textToBuild = new StringBuilder("[");
@@ -74,4 +74,5 @@ public class ArrayCustom<E> {
     public int getSize() {
         return selfSize;
     }
+    
 }

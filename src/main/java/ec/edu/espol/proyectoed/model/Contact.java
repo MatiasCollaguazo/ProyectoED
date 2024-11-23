@@ -1,62 +1,56 @@
 package ec.edu.espol.proyectoed.model;
+
 import com.google.gson.Gson;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
- * 
+ *
  * @author Matías_Collaguazo
  */
 public abstract class Contact {
-    private String name;
-    private String phoneNumber;
-    private String email;
-    private ArrayCustom<Contact> contacts = new ArrayCustom<>();
-    private LinkedListCustom< Attribute<String,String> > additionalAttributes;
 
-    /**
-     * @param name the contact's name
-     * @param phoneNumber the contact's primary phone number
-     * @param email the contact's email address
+    private LinkedListCustom<Contact> contacts = new LinkedListCustom<>();
+    private LinkedListCustom< ContactAttribute<String, String>> mainAttributes;
+    private LinkedListCustom< ContactAttribute<String, String>> additionalAttributes;
+
+    /*
+        @CompabilityFeature
      */
-    public Contact(String name, String phoneNumber, String email) {
-        this.name = name;
-        this.phoneNumber = phoneNumber;
-        this.email = email;
+    private Map<String, String> attributes;
+
+    public Contact() {
+        this.mainAttributes = new LinkedListCustom<>();
         this.additionalAttributes = new LinkedListCustom<>();
+
+        //@CompabilityFeature
+        this.attributes = new HashMap<>();
     }
 
-    public String getName() {
-        return name;
-    }
-    
-    public void setName(String name){
-        this.name=name;
+    public LinkedListCustom getMainAttributes() {
+        return mainAttributes;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public LinkedListCustom getAdditionalAttributes(){
+    public LinkedListCustom getAdditionalAttributes() {
         return additionalAttributes;
     }
-    
-    public ArrayCustom getContacts(){
+
+    public LinkedListCustom getContacts() {
         return contacts;
     }
-    
+
     public String toJson() {
         Gson gson = new Gson();
         return gson.toJson(this);
     }
+
+    //@CompabilityFeature
+    public void setAttribute(String key, String value) {
+        attributes.put(key, value);
+    }
+
+    public String getAttribute(Attributes key) {
+        return attributes.get(key.getDisplayName());
+    }
+
 }
