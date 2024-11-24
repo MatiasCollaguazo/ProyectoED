@@ -57,7 +57,11 @@ public class CreateContactController implements Initializable {
     /**
      * Initializes the controller class.
      */
-    private final ContactManager contactManager = ContactManager.getInstance();
+    private final ContactManager contactManager;
+
+    public CreateContactController() {
+        this.contactManager = ContactManager.getInstance();
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {

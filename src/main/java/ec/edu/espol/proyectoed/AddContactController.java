@@ -53,7 +53,6 @@ public class AddContactController{
         return personalRadio.isSelected();
     }
     
-    // Método para validar la entrada
     public boolean isInputValid() {
         if (firstNameField.getText().isEmpty() || 
             phoneField.getText().isEmpty()) {
