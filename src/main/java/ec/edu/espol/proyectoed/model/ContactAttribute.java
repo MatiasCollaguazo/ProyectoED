@@ -1,12 +1,15 @@
 package ec.edu.espol.proyectoed.model;
 
+import com.google.gson.annotations.Expose;
+
 /**
  *
  * @author Matías_Collaguazo
  */
 public class ContactAttribute<K, V> {
-
+    @Expose
     private K attributeName;
+    @Expose
     private V value;
 
     public ContactAttribute(K attributeName, V value) {

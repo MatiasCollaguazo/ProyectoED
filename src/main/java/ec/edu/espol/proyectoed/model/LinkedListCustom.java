@@ -1,5 +1,8 @@
 package ec.edu.espol.proyectoed.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author Matías_Collaguazo
@@ -217,4 +220,22 @@ public class LinkedListCustom<E> {
         textToBuild.append("]");
         return textToBuild.toString();
     }
+    
+    public List<E> toList() {
+        List<E> list = new ArrayList<>();
+        NodeCustom<E> current = head;
+
+        System.out.println("toList() - Recuperando elementos de LinkedListCustom");
+        if (head != null) {
+            do {
+                System.out.println("Elemento en toList: " + current.getData());
+                list.add(current.getData());
+                current = current.getNext();
+            } while (current != head);
+        }
+
+        return list;
+    }
+
+
 }

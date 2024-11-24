@@ -1,5 +1,15 @@
 package ec.edu.espol.proyectoed.model;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.lang.reflect.Type;
+import java.util.List;
+
 /**
  *
  * @author Matías_Collaguazo
@@ -53,6 +63,10 @@ public class ContactManager {
     public synchronized void addContact(Contact contact) {
         if (contact != null) {
             contacts.add(contact);
+
+            // Imprimir el contacto que se está agregando
+            System.out.println("Contacto agregado: " + contact.toJson());
+            saveContactsToJson();
         } else {
             throw new NullPointerException("Cannot add a null contact. Error ProyectoED Failed01");
         }
@@ -164,9 +178,102 @@ public class ContactManager {
             System.out.println("No contacts available");
         } else {
             for (int i = 0; i < contacts.getSize(); i++) {
-                System.out.println(contacts.get(i));
+                Contact contact = contacts.get(i);
+                System.out.println(contact.toJson());
             }
         }
     }
+
+public void saveContactsToJson() {
+    try {
+        List<Contact> contactList = contacts.toList();
+
+        // Configurar Gson con el adaptador personalizado
+        Gson gson = new GsonBuilder()
+            .registerTypeAdapter(Contact.class, new ContactAdapter()) // Adaptador para manejar subclases
+            .excludeFieldsWithoutExposeAnnotation()
+            .setPrettyPrinting()
+            .create();
+
+        String json = gson.toJson(contactList);
+
+        // Escribir el JSON en el archivo
+        try (FileWriter fileWriter = new FileWriter("contacts.json")) {
+            fileWriter.write(json);
+            fileWriter.flush();
+        }
+
+        System.out.println("Contactos guardados en contacts.json");
+
+    } catch (IOException e) {
+        System.err.println("Error al guardar contactos: " + e.getMessage());
+    }
+}
+
+
+
     
+    public void loadContactsFromJson() {
+        File file = new File("contacts.json");
+        if (!file.exists()) {
+            System.out.println("El archivo contacts.json no existe. Iniciando con una lista vacía.");
+            return; // No hay nada que cargar
+        }
+
+        try (FileReader reader = new FileReader(file)) {
+            // Tipo genérico para una lista de contactos
+            Type listType = new TypeToken<List<Contact>>() {}.getType();
+
+            // Usar el Gson configurado con el deserializador
+            Gson gson = new GsonBuilder()
+                .registerTypeAdapter(Contact.class, new ContactDeserializer())
+                .excludeFieldsWithoutExposeAnnotation()
+                .create();
+
+            // Deserializar el JSON en una lista de contactos
+            List<Contact> contactList = gson.fromJson(reader, listType);
+
+            // Agregar los contactos deserializados a la LinkedListCustom
+            for (Contact contact : contactList) {
+                contacts.add(contact);
+            }
+
+            System.out.println("Contactos cargados desde contacts.json.");
+        } catch (IOException e) {
+            System.err.println("Error al cargar contactos: " + e.getMessage());
+        }
+    }
+    
+    
+    public boolean updateContactAttribute(String contactIdentifier, String attributeName, String newValue) {
+        // Obtener la lista de contactos
+        List<Contact> contactList = contacts.toList();
+
+        // Recorrer la lista para buscar el contacto
+        for (Contact contact : contactList) {
+            // Verificar si el contacto tiene el identificador buscado
+            for (Object obj : contact.getAdditionalAttributes().toList()) {
+            // Convertir explícitamente a ContactAttribute<String, String>
+            ContactAttribute<String, String> attribute = (ContactAttribute<String, String>) obj;
+
+            if (attribute.getAttributeName().equals("First Name") && attribute.getValue().equals(contactIdentifier)) {
+                // Buscar el atributo que se desea actualizar
+                for (Object obj2 : contact.getAdditionalAttributes().toList()) {
+                    ContactAttribute<String, String> attr = (ContactAttribute<String, String>) obj2;
+
+                    if (attr.getAttributeName().equals(attributeName)) {
+                        // Actualizar el valor del atributo
+                        attr.setValue(newValue);
+                        System.out.println("Atributo actualizado: " + attributeName + " = " + newValue);
+                        return true;
+                    }
+                }
+            }
+    }
+
+        }
+        System.out.println("Contacto o atributo no encontrado.");
+        return false;
+    }
+
 }
