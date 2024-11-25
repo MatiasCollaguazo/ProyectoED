@@ -14,4 +14,10 @@ public class CompanyContact extends Contact {
     public ContactType getType(){
         return type;
     }
+    
+    @Override
+    public String toString() {
+        return "CompanyContact {" + super.toString() + "}";
+    }
+
 }

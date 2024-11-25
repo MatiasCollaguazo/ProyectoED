@@ -156,7 +156,7 @@ public class PrimaryController implements Initializable {
             // Cargar el FXML
             FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/ec/edu/espol/proyectoed/searchDialog.fxml"));
             DialogPane dialogPane = fxmlLoader.load();
-            showAlert(Alert.AlertType.CONFIRMATION, "Correcto", "se ingreso correctamente");
+            
 
             // Crear el diálogo
             Dialog<ButtonType> dialog = new Dialog<>();

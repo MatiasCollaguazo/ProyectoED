@@ -1,11 +1,13 @@
 package ec.edu.espol.proyectoed.model;
 
+import com.google.gson.annotations.Expose;
+
 /**
  *
  * @author Matías_Collaguazo
  */
 public class NodeCustom<E> {
-
+    @Expose
     E data;
     NodeCustom<E> next;
     NodeCustom<E> prev;

@@ -14,4 +14,10 @@ public class PersonalContact extends Contact {
     public ContactType getType() {
         return type;
     }
+    
+    @Override
+    public String toString() {
+        return "PersonalContact {" + super.toString() + "}";
+    }
+
 }

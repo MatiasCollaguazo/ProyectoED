@@ -35,6 +35,8 @@ public class ViewContactController implements Initializable {
     @FXML
     private Button createContactButton;
     @FXML
+    private Button save;
+    @FXML
     private Button return_back;
     @FXML
     private ImageView contactImageView1;
@@ -181,5 +183,11 @@ public class ViewContactController implements Initializable {
             showAlert(Alert.AlertType.ERROR, "Error", "No se pudo eliminar el contacto: " + e.getMessage());
         }
     }
+    
+    @FXML
+    private void saveContactAttributes(ActionEvent event) {
+
+    }
+
 
 }
