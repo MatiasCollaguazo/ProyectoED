@@ -256,3 +256,23 @@
     -fx-text-fill: #555555;
     -fx-cursor: hand;
 }
+
+.check-box > .box {
+    -fx-min-width: 20px; /* Tamaño mínimo */
+    -fx-min-height: 20px;
+    -fx-pref-width: 20px; /* Tamaño preferido */
+    -fx-pref-height: 20px;
+    -fx-border-color: #555555;
+    -fx-border-width: 2; /* Grosor del borde */
+    -fx-background-color: white;
+    -fx-border-radius: 4; /* Opcional, para esquinas redondeadas */
+}
+
+.check-box:selected > .box {
+    -fx-background-color: #1a73e8; /* Color cuando está seleccionada */
+    -fx-border-color: #1a73e8;
+}
+
+.check-box > .box:hover {
+    -fx-border-color: #1a73e8; /* Efecto hover */
+}

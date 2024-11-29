@@ -135,7 +135,7 @@ public class ContactManager {
      */
     public void removeAttribute(Contact contact, String attributeName) {
         //May create a "ListCustom" class would be a effective manner to change the data structure here
-        LinkedListCustom<ContactAttribute<String, String>> additionalAttributes;
+        ArrayCustom<ContactAttribute<String, String>> additionalAttributes;
         if (contact.getAdditionalAttributes() != null) {
             additionalAttributes = contact.getAdditionalAttributes();
         } else {

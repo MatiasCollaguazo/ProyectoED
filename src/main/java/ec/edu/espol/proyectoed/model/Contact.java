@@ -11,27 +11,27 @@ import java.util.Map;
 public abstract class Contact {
 
     private LinkedListCustom<Contact> contacts = new LinkedListCustom<>();
-    private LinkedListCustom< ContactAttribute<String, String>> mainAttributes;
-    private LinkedListCustom< ContactAttribute<String, String>> additionalAttributes;
+    private final ArrayCustom< ContactAttribute<String, String>> mainAttributes;
+    private final ArrayCustom< ContactAttribute<String, String>> additionalAttributes;
 
     /*
         @CompabilityFeature
      */
-    private Map<String, String> attributes;
+    private final Map<String, String> attributes;
 
     public Contact() {
-        this.mainAttributes = new LinkedListCustom<>();
-        this.additionalAttributes = new LinkedListCustom<>();
+        this.mainAttributes = new ArrayCustom<>();
+        this.additionalAttributes = new ArrayCustom<>();
 
         //@CompabilityFeature
         this.attributes = new HashMap<>();
     }
 
-    public LinkedListCustom getMainAttributes() {
+    public ArrayCustom getMainAttributes() {
         return mainAttributes;
     }
 
-    public LinkedListCustom getAdditionalAttributes() {
+    public ArrayCustom getAdditionalAttributes() {
         return additionalAttributes;
     }
 
