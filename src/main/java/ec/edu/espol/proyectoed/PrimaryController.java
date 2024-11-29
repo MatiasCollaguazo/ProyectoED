@@ -94,6 +94,7 @@ public class PrimaryController implements Initializable {
                 Contact selectedContact = contactsTable.getSelectionModel().getSelectedItem();
                 if (selectedContact != null) {
                     contactManager.setCurrentSelectedContact(selectedContact);
+                    System.out.println(contactManager.getCurrentSelectedContact());
                     try {
                         App.setRoot("viewContact");
                     } catch (IOException e) {

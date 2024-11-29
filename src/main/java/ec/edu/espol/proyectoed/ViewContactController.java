@@ -164,7 +164,7 @@ public class ViewContactController implements Initializable {
     }
 
     @FXML
-    private void removeContact(ActionEvent event) {
+    private synchronized void removeContact(ActionEvent event) {
         if (currentContact == null) {
             showAlert(Alert.AlertType.WARNING, "Eliminar Contacto", "No hay contacto seleccionado para eliminar.");
             return;
@@ -172,6 +172,7 @@ public class ViewContactController implements Initializable {
 
         try {
             LinkedListCustom<Contact> allContacts = contactManager.getAllContacts();
+            System.out.println(currentContact);
             allContacts.remove(currentContact);
             nextContact();
             showAlert(Alert.AlertType.INFORMATION, "Eliminar Contacto", "El contacto fue eliminado con éxito.");
@@ -179,6 +180,7 @@ public class ViewContactController implements Initializable {
             switchToPrimaryView(event);
         } catch (Exception e) {
             showAlert(Alert.AlertType.ERROR, "Error", "No se pudo eliminar el contacto: " + e.getMessage());
+            System.out.println(e);
         }
     }
 

@@ -101,7 +101,7 @@
                              <!-- Checkbox para decidir si es contacto de empresa -->
                              <HBox alignment="CENTER" spacing="10">
                                 <children>
-                                    <CheckBox fx:id="isCompanyCheckBox" contentDisplay="CENTER" onAction="#toggleCompanyField" mnemonicParsing="false" text="Es contacto de empresa" BorderPane.alignment="CENTER"/>
+                                    <CheckBox fx:id="isCompanyCheckBox" contentDisplay="CENTER" mnemonicParsing="false" onAction="#toggleCompanyField" prefHeight="20.0" prefWidth="221.0" text="Es contacto de empresa" BorderPane.alignment="CENTER" />
                                 </children>
                              </HBox>
                              <!-- Campo Empresa (oculto inicialmente) -->

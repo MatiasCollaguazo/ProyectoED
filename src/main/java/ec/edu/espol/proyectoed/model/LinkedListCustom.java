@@ -123,14 +123,14 @@ public class LinkedListCustom<E> {
         }
         selfSize--;
     }
-
+    
     public boolean remove(E element) {
         if (head == null) {
             return false;
         }
 
         NodeCustom<E> current = head;
-        while (current != null) {
+        do {
             if (current.getData().equals(element)) {
                 NodeCustom<E> prevNode = current.getPrev();
                 NodeCustom<E> nextNode = current.getNext();
@@ -138,7 +138,7 @@ public class LinkedListCustom<E> {
                 if (current == head) {
                     head = nextNode;
                     if (head != null) {
-                        head.setPrev(null);
+                        head.setPrev(last);
                     }
                 } else {
                     prevNode.setNext(nextNode);
@@ -147,38 +147,19 @@ public class LinkedListCustom<E> {
                     }
                 }
 
-                // Si el nodo a eliminar es el último
                 if (current == last) {
                     last = prevNode;
-                    if (last != null) {
-                        last.setNext(null);
-                    }
                 }
 
                 selfSize--;
                 return true;
             }
             current = current.getNext();
-        }
+        } while (current != head); 
 
         return false;
     }
 
-    public void removeLast() throws Exception {
-        if (last == null) {
-            throw new Exception("The linked list is empty...");
-        }
-        if (head == last) {
-            head = null;
-            last = null;
-        } else {
-            last = last.getPrev();
-            last.setNext(head);
-            head.setPrev(last);
-        }
-        selfSize--;
-    }
-    
     public int indexOf(E element) {
         if (head == null) {
             return -1;
@@ -198,6 +179,21 @@ public class LinkedListCustom<E> {
         return -1;
     }
 
+    public void removeLast() throws Exception {
+        if (last == null) {
+            throw new Exception("The linked list is empty...");
+        }
+        if (head == last) {
+            head = null;
+            last = null;
+        } else {
+            last = last.getPrev();
+            last.setNext(head);
+            head.setPrev(last);
+        }
+        selfSize--;
+    }
+   
     @Override
     public String toString() {
         StringBuilder textToBuild = new StringBuilder();
