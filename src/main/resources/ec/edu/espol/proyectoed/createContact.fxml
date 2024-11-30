@@ -64,22 +64,22 @@
                         <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Crear Contacto" />
                     </children>
                 </HBox>
-                <HBox prefHeight="100.0" prefWidth="200.0">
+                <HBox prefHeight="396.0" prefWidth="628.0">
                     <children>
-                        <VBox alignment="TOP_LEFT" maxWidth="400" spacing="15" styleClass="form-container">
+                        <VBox alignment="TOP_LEFT" maxWidth="498.0" prefHeight="396.0" prefWidth="498.0" spacing="15" styleClass="form-container">
                             <children>
                                 <!-- Campo Imagen del Contacto -->
                                 <HBox alignment="CENTER" spacing="10">
                                     <children>
-                                        <ImageView fx:id="contactImageView" fitHeight="100" fitWidth="100" style="-fx-border-color: gray; -fx-border-width: 1px;">
+                                        <ImageView fx:id="contactImageView" fitHeight="100" fitWidth="100" style="-fx-alignment: left;">
                                             <image>
                                                 <Image url="@../../../../img/user_default.png" />
                                             </image>
                                         </ImageView>
                                         <VBox alignment="CENTER" spacing="5">
                                             <children>
-                                                <Button onAction="#loadContactImage" text="Cargar Imagen" />
-                                                <Label style="-fx-font-size: 10px;" text="(Tamaño recomendado: 100x100)" />
+                                                <Button onAction="#loadContactImage" style="-fx-alignment: left;" text="Cargar Imagen" />
+                                                <Label style="-fx-alignment: left;" text="(Tamaño recomendado: 100x100)" />
                                             </children>
                                         </VBox>
                                     </children>
@@ -89,19 +89,15 @@
                                     <children>
                                         <Label styleClass="form-label" text="Nombre" />
                                         <TextField fx:id="nameField" promptText="Nombre" />
-                                    </children>
-                                </HBox>
-                                <!-- Campo Apellidos -->
-                                <HBox alignment="CENTER_LEFT" spacing="10">
-                                    <children>
-                                        <Label styleClass="form-label" text="Apellidos" />
                                         <TextField fx:id="lastNameField" promptText="Apellidos" />
                                     </children>
                                 </HBox>
+                                <!-- Campo Apellidos -->
+                                <HBox alignment="CENTER_LEFT" spacing="10" />
                                 <!-- Checkbox para decidir si es contacto de empresa -->
                                 <HBox alignment="CENTER" spacing="10">
                                     <children>
-                                        <CheckBox fx:id="isCompanyCheckBox" contentDisplay="CENTER" mnemonicParsing="false" onAction="#toggleCompanyField" prefHeight="20.0" prefWidth="221.0" text="Es contacto de empresa" BorderPane.alignment="CENTER" />
+                                        <CheckBox fx:id="isCompanyCheckBox" contentDisplay="CENTER" mnemonicParsing="false" onAction="#toggleCompanyField" text="Es contacto de empresa" />
                                     </children>
                                 </HBox>
                                 <!-- Campo Empresa (oculto inicialmente) -->
@@ -128,42 +124,11 @@
                                 <HBox prefHeight="100.0" prefWidth="200.0">
                                     <children>
                                         <!-- Botón para guardar -->
-                                        <Button fx:id="saveButton" onAction="#saveContact" styleClass="save-button" text="Guardar">
-                                            <padding>
-                                                <Insets right="100.0" />
-                                            </padding>
-                                        </Button>
+                                        <Button fx:id="saveButton" onAction="#saveContact" styleClass="save-button" text="Guardar" />
                                     </children>
                                 </HBox>
                             </children>
                         </VBox>
-                        <VBox fx:id="additionalAttributesContainer" prefHeight="396.0" prefWidth="381.0" alignment="CENTER" spacing="10">
-                            <!-- Botón para Añadir Cumpleaños -->
-                            <HBox alignment="CENTER">
-                                <Button text="Añadir cumpleaños" onAction="#addBirthdayField" />
-                            </HBox>
-    
-                            <!-- Contenedor de cumpleaños (inicialmente oculto) -->
-                            <HBox fx:id="birthdayContainer" visible="false" alignment="CENTER" spacing="10">
-                                <Label text="Cumpleaños:" />
-                                <DatePicker fx:id="birthdayField" />
-                            </HBox>
-    
-                            <!-- Separador para mejorar la presentación -->
-                            <Separator />
-    
-                            <!-- Botón para Añadir Dirección -->
-                            <HBox alignment="CENTER">
-                                <Button text="Añadir dirección" onAction="#addAddressField" />
-                            </HBox>
-    
-                            <!-- Contenedor de dirección (inicialmente oculto) -->
-                            <HBox fx:id="addressContainer" visible="false" alignment="CENTER" spacing="10">
-                                <Label text="Dirección:" />
-                                <TextField fx:id="addressField" promptText="Introduce la dirección" />
-                            </HBox>
-                        </VBox>
-
                     </children>
                 </HBox>
             </children>

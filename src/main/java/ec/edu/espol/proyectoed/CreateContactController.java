@@ -14,11 +14,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 
 /**
  * FXML Controller class
@@ -57,16 +55,6 @@ public class CreateContactController implements Initializable {
      * Initializes the controller class.
      */
     private final ContactManager contactManager;
-    @FXML
-    private VBox additionalAttributesContainer;
-    @FXML
-    private HBox birthdayContainer;
-    @FXML
-    private DatePicker birthdayField;
-    @FXML
-    private HBox addressContainer;
-    @FXML
-    private TextField addressField;
 
     public CreateContactController() {
         this.contactManager = ContactManager.getInstance();
@@ -87,10 +75,11 @@ public class CreateContactController implements Initializable {
 
     @FXML
     private void toggleCompanyField(ActionEvent event) {
-        boolean isVisible = companyField.isVisible();
-        companyField.setVisible(!isVisible);
-        companyField.setManaged(!isVisible);
+        boolean isVisible = companyFieldContainer.isVisible();
+        companyFieldContainer.setVisible(!isVisible);
+        companyFieldContainer.setManaged(!isVisible);
     }
+
 
     @FXML
     private void switchToPrmiaryView(ActionEvent event) {
@@ -121,7 +110,7 @@ public class CreateContactController implements Initializable {
             Contact newContact;
             if (isCompany) {
                 CompanyContactCreator companyCreator = new CompanyContactCreator();
-                newContact = companyCreator.createContact(name, lastName, phone, email, company);
+                newContact = companyCreator.createContact(name, lastName, phone, email, "", company);
             } else {
                 PersonalContactCreator personalCreator = new PersonalContactCreator();
                 newContact = personalCreator.createContact(name, lastName, phone, email);
@@ -146,15 +135,5 @@ public class CreateContactController implements Initializable {
         isCompanyCheckBox.setSelected(false);
         companyFieldContainer.setVisible(false);
         companyFieldContainer.setManaged(false);
-    }
-
-    @FXML
-    private void addBirthdayField(ActionEvent event) {
-        birthdayContainer.setVisible(true);
-    }
-
-    @FXML
-    private void addAddressField(ActionEvent event) {
-        addressContainer.setVisible(true);
     }
 }

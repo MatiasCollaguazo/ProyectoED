@@ -102,16 +102,22 @@ public class ViewContactController implements Initializable {
 
     @FXML
     private void loadContactImage(ActionEvent event) {
-
+        boolean isVisible = companyField.isVisible();
+        companyField.setVisible(!isVisible);
+        companyField.setManaged(!isVisible);
     }
 
     @FXML
     private void toggleCompanyField(ActionEvent event) {
-
+        boolean isVisible = companyFieldContainer.isVisible();
+        companyFieldContainer.setVisible(!isVisible);
+        companyFieldContainer.setManaged(!isVisible);
     }
 
     @FXML
     private void previousContact() {
+        companyFieldContainer.setVisible(false);
+        companyFieldContainer.setManaged(false);
         LinkedListCustom<Contact> allContacts = contactManager.getAllContacts();
         int currentIndex = allContacts.indexOf(currentContact);
 
@@ -127,6 +133,8 @@ public class ViewContactController implements Initializable {
 
     @FXML
     private void nextContact() {
+        companyFieldContainer.setVisible(false);
+        companyFieldContainer.setManaged(false);
         LinkedListCustom<Contact> allContacts = contactManager.getAllContacts();
         int currentIndex = allContacts.indexOf(currentContact);
 
@@ -147,7 +155,8 @@ public class ViewContactController implements Initializable {
 
         if (getTypeOf(currentContact) == ContactType.COMPANY) {
             isCompanyCheckBox.setSelected(true);
-            companyField.setVisible(true);
+            companyFieldContainer.setVisible(true);
+            companyFieldContainer.setManaged(true);
             companyField.setText(currentContact.getAttribute(Attributes.COMPANY_NAME));
         } else {
             isCompanyCheckBox.setSelected(false);
@@ -187,9 +196,8 @@ public class ViewContactController implements Initializable {
     }
 
     @FXML
-    private void saveContact(ActionEvent event) {
+    private synchronized void saveContact(ActionEvent event) {
         try {
-            // Obtener los valores de los campos del formulario
             String name = nameField.getText().trim();
             String lastName = lastNameField.getText().trim();
             String phone = phoneField.getText().trim();
@@ -205,7 +213,7 @@ public class ViewContactController implements Initializable {
             Contact newContact;
             if (isCompany) {
                 CompanyContactCreator companyCreator = new CompanyContactCreator();
-                newContact = companyCreator.createContact(name, lastName, phone, email, company);
+                newContact = companyCreator.createContact(name, lastName, phone, email, "", company);
             } else {
                 PersonalContactCreator personalCreator = new PersonalContactCreator();
                 newContact = personalCreator.createContact(name, lastName, phone, email);
