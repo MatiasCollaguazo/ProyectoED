@@ -57,14 +57,15 @@ public class PrimaryController implements Initializable {
             setUser(USER);
             CompanyContactCreator companyCreator = new CompanyContactCreator();
             Contact personalContact1 = personalCreator.createContact("Pablo", "Menéndez", "0998765432", "pablo@example.com");
-            Contact companyContact1 = companyCreator.createContact("Juan", "Peréz", "0987654321", "info@scheel.com", "Scheel Constructora");
-            Contact companyContact2 = companyCreator.createContact("Carla", "Santacruz", "0943526478", "info@scheel.com", "Scheel Constructora");
+            Contact companyContact1 = companyCreator.createContact("Juan", "Peréz", "0987654321", "info@scheel.com", "", "Scheel Construcora");
+            Contact companyContact2 = companyCreator.createContact("Carla", "Santacruz", "0943526478", "info@scheel.com", "Av. Vilcabamba", "Scheel Constructura");
             Contact personalContact2 = personalCreator.createContact("Santiago", "Menéndez", "0943565374");
             setUser(USER);
             contactManager.addContact(personalContact1);
             contactManager.addContact(companyContact1);
             contactManager.addContact(companyContact2);
             contactManager.addContact(personalContact2);
+            System.out.println(companyContact2.getMainAttributes() );
         } else {
             this.USER = contactManager.getUser();
         }
@@ -73,7 +74,6 @@ public class PrimaryController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // Configuración inicial del TableView
         nameColumn.setText(Attributes.FIRST_NAME.getDisplayName());
         lastName.setText(Attributes.LAST_NAME.getDisplayName());
         phoneColumn.setText(Attributes.PHONE_NUMBER.getDisplayName());

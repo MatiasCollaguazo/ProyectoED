@@ -213,4 +213,17 @@ public class LinkedListCustom<E> {
         textToBuild.append("]");
         return textToBuild.toString();
     }
+
+    public void set(int currentIndex, E newData) {
+        if (currentIndex < 0 || currentIndex >= selfSize) {
+            throw new IndexOutOfBoundsException("Index out of bounds... no logical");
+        }
+
+        NodeCustom<E> current = head;
+        for (int i = 0; i < currentIndex; i++) {
+            current = current.getNext();
+        }
+
+        current.setData(newData);
+    }
 }

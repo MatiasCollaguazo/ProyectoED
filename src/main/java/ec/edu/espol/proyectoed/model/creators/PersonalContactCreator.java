@@ -30,6 +30,13 @@ public class PersonalContactCreator extends ContactCreator {
     }
 
     @Override
+    public Contact createContact(String name, String lastName, String phoneNumber, String email, String adress, String companyName) {
+        PersonalContact contact = new PersonalContact();
+        addDefaultAttributes(contact, name, lastName, phoneNumber, email, adress, companyName, "", "", "");
+        return contact;
+    }
+    
+    @Override
     public Contact createContact(String name, String lastName, String phoneNumber, String email, String companyName) {
         PersonalContact contact = new PersonalContact();
         addDefaultAttributes(contact, name, lastName, phoneNumber, email, companyName, "", "", "", "");
@@ -41,4 +48,5 @@ public class PersonalContactCreator extends ContactCreator {
         addDefaultAttributes(contact); // Todos los valores estarán vacíos por defecto.
         return contact;
     }
+
 }

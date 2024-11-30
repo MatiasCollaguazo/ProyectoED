@@ -25,6 +25,7 @@ public abstract class ContactCreator {
     public abstract Contact createContact(String name, String phoneNumber);
     public abstract Contact createContact(String name, String lastName, String phoneNumber);
     public abstract Contact createContact(String name, String lastName, String phoneNumber, String email);
-    public abstract Contact createContact(String name, String lastName, String phoneNumber, String email, String companyName);
+    public abstract Contact createContact(String name, String lastName, String phoneNumber, String email, String adress);
+    public abstract Contact createContact(String name, String lastName, String phoneNumber, String email, String adress, String companyName);
     
 }

@@ -30,9 +30,16 @@ public class CompanyContactCreator extends ContactCreator {
     }
 
     @Override
-    public Contact createContact(String name, String lastName, String phoneNumber, String email, String companyName) {
+    public Contact createContact(String name, String lastName, String phoneNumber, String email, String adress) {
         CompanyContact contact = new CompanyContact();
-        addDefaultAttributes(contact, name, lastName, phoneNumber, email, companyName, "", "", "", "");
+        addDefaultAttributes(contact, name, lastName, phoneNumber, email, adress, "", "", "", "");
+        return contact;
+    }
+    
+    @Override
+    public Contact createContact(String name, String lastName, String phoneNumber, String email, String adress, String companyName) {
+        CompanyContact contact = new CompanyContact();
+        addDefaultAttributes(contact, name, lastName, phoneNumber, email, adress, companyName, "", "", "");
         return contact;
     }
 

@@ -7,6 +7,8 @@ import ec.edu.espol.proyectoed.model.Attributes;
 import ec.edu.espol.proyectoed.model.CompanyContact;
 import ec.edu.espol.proyectoed.model.ContactType;
 import ec.edu.espol.proyectoed.model.PersonalContact;
+import ec.edu.espol.proyectoed.model.creators.CompanyContactCreator;
+import ec.edu.espol.proyectoed.model.creators.PersonalContactCreator;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -23,7 +25,7 @@ import javafx.scene.layout.HBox;
 /**
  * FXML Controller class
  *
- * @author matia
+ * @author Matias_Collaguazo
  */
 public class ViewContactController implements Initializable {
 
@@ -145,8 +147,8 @@ public class ViewContactController implements Initializable {
 
         if (getTypeOf(currentContact) == ContactType.COMPANY) {
             isCompanyCheckBox.setSelected(true);
-            //companyFieldContainer.setVisible(true);
-            //companyField.setText(currentContact.getAttribute(Attributes.COMPANY_NAME));
+            companyField.setVisible(true);
+            companyField.setText(currentContact.getAttribute(Attributes.COMPANY_NAME));
         } else {
             isCompanyCheckBox.setSelected(false);
             companyFieldContainer.setVisible(false);
@@ -184,4 +186,45 @@ public class ViewContactController implements Initializable {
         }
     }
 
+    @FXML
+    private void saveContact(ActionEvent event) {
+        try {
+            // Obtener los valores de los campos del formulario
+            String name = nameField.getText().trim();
+            String lastName = lastNameField.getText().trim();
+            String phone = phoneField.getText().trim();
+            String email = emailField.getText().trim();
+            boolean isCompany = isCompanyCheckBox.isSelected();
+            String company = isCompany ? companyField.getText().trim() : "";
+
+            if (name.isEmpty() || lastName.isEmpty() || phone.isEmpty()) {
+                showAlert(Alert.AlertType.ERROR, "Error", "Por favor, complete los campos obligatorios: Nombre, Apellido y Teléfono.");
+                return;
+            }
+
+            Contact newContact;
+            if (isCompany) {
+                CompanyContactCreator companyCreator = new CompanyContactCreator();
+                newContact = companyCreator.createContact(name, lastName, phone, email, company);
+            } else {
+                PersonalContactCreator personalCreator = new PersonalContactCreator();
+                newContact = personalCreator.createContact(name, lastName, phone, email);
+            }
+
+            LinkedListCustom<Contact> allContacts = contactManager.getAllContacts();
+
+            int currentIndex = allContacts.indexOf(currentContact);
+
+            if (currentIndex != -1) {
+                allContacts.set(currentIndex, newContact);
+                contactManager.setCurrentSelectedContact(newContact);
+                showAlert(Alert.AlertType.INFORMATION, "Éxito", "El contacto ha sido actualizado exitosamente.");
+            } else {
+                showAlert(Alert.AlertType.ERROR, "Error", "No se pudo encontrar el contacto para actualizar.");
+            }
+
+        } catch (Exception e) {
+            showAlert(Alert.AlertType.ERROR, "Error", "Ocurrió un error al guardar el contacto: " + e.getMessage());
+        }
+    }
 }

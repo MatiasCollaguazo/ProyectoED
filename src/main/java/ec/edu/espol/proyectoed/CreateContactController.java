@@ -14,6 +14,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -52,12 +53,20 @@ public class CreateContactController implements Initializable {
     private TextField phoneField;
     @FXML
     private Button saveButton;
-    @FXML
-    private VBox additionalAttributsContainer;
     /**
      * Initializes the controller class.
      */
     private final ContactManager contactManager;
+    @FXML
+    private VBox additionalAttributesContainer;
+    @FXML
+    private HBox birthdayContainer;
+    @FXML
+    private DatePicker birthdayField;
+    @FXML
+    private HBox addressContainer;
+    @FXML
+    private TextField addressField;
 
     public CreateContactController() {
         this.contactManager = ContactManager.getInstance();
@@ -78,9 +87,9 @@ public class CreateContactController implements Initializable {
 
     @FXML
     private void toggleCompanyField(ActionEvent event) {
-        boolean isVisible = companyFieldContainer.isVisible();
-        companyFieldContainer.setVisible(!isVisible);
-        companyFieldContainer.setManaged(!isVisible);
+        boolean isVisible = companyField.isVisible();
+        companyField.setVisible(!isVisible);
+        companyField.setManaged(!isVisible);
     }
 
     @FXML
@@ -122,6 +131,7 @@ public class CreateContactController implements Initializable {
             showAlert(Alert.AlertType.INFORMATION, "Éxito", "El contacto ha sido guardado exitosamente.");
 
             clearForm();
+            contactManager.setCurrentSelectedContact(newContact);
         } catch (Exception e) {
             showAlert(Alert.AlertType.ERROR, "Error", "Ocurrió un error al guardar el contacto: " + e.getMessage());
         }
@@ -136,5 +146,15 @@ public class CreateContactController implements Initializable {
         isCompanyCheckBox.setSelected(false);
         companyFieldContainer.setVisible(false);
         companyFieldContainer.setManaged(false);
+    }
+
+    @FXML
+    private void addBirthdayField(ActionEvent event) {
+        birthdayContainer.setVisible(true);
+    }
+
+    @FXML
+    private void addAddressField(ActionEvent event) {
+        addressContainer.setVisible(true);
     }
 }
